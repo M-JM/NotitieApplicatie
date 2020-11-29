@@ -1,0 +1,43 @@
+﻿<Window x:Class="NotitieApplicatie.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotitieApplicatie"
+        mc:Ignorable="d"
+        Title="NotitieApplicatie" Height="450" Width="800">
+    <Grid Margin="0,0,0,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView Name="UserGrid" Grid.Row="1" Margin="4,217,12,13"  ItemsSource="{Binding Notities }"  >
+            <ListView.View>
+                <GridView x:Name="grdTest">
+                    <GridViewColumn Header="Titel" DisplayMemberBinding="{Binding Titel}"  Width="80" />
+                    <GridViewColumn Header="Inhoud" DisplayMemberBinding="{Binding Inhoud}" Width="300" />
+                    <GridViewColumn Header="AangemaaktOp" DisplayMemberBinding="{Binding AangemaaktOp}" Width="100" />
+                    <GridViewColumn Header="Categorie" DisplayMemberBinding="{Binding Categorie.Naam}" Width="80" />
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="120,10,0,0" Name="txtUserId" VerticalAlignment="Top" Width="178" Text="{Binding ElementName=UserGrid,Path=SelectedItem.Titel}" />
+        <TextBox Grid.Row="1" Height="87" HorizontalAlignment="Left" Margin="120,38,0,0" Name="txtFirstName" VerticalAlignment="Top" Width="178" Text="{Binding ElementName=UserGrid,Path=SelectedItem.Inhoud}" />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="120,130,0,0" Name="txtLastName" VerticalAlignment="Top" Width="178" Text="{Binding ElementName=UserGrid,Path=SelectedItem.AangemaaktOp}" />
+        <Label Content="Titel" Grid.Row="1" HorizontalAlignment="Left" Margin="12,12,0,274" Name="label1" />
+        <Label Content="Aangemaakt op" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,130,0,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="Inhoud" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,35,0,0" Name="label3" VerticalAlignment="Top" />
+        <Button Content="Update" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,40,0,0" Name="btnUpdate"   
+                VerticalAlignment="Top" Width="141"  
+                 />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="120,155,0,0" x:Name="txtCountry" VerticalAlignment="Top" Width="178" Text="{Binding SelectedItem.Categorie.Naam, ElementName=UserGrid}" />
+        <Label Content="Categorie" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,155,0,0" x:Name="label2_Copy1" VerticalAlignment="Top" />
+    </Grid>
+
+
+
+
+
+</Window>

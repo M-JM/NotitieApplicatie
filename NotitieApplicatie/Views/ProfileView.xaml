@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="NotitieApplicatie.Views.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NotitieApplicatie.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Naam" />
+        <TextBox Text="{Binding NotitieBoek.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+
+        <TextBlock Text="Beschrijving" Grid.Row="1"/>
+        <TextBox Text="{Binding NotitieBoek.Beschrijving, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" />
+
+        <TextBlock Text="Eigenaar" Grid.Row="2"/>
+        <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Eigenaars}" DisplayMemberPath="Naam"  SelectedItem="{Binding NotitieBoek.Eigenaar, UpdateSourceTrigger=PropertyChanged}">
+            
+        </ComboBox>
+
+        <Button Content="Bewaar" Command="{Binding MaakCommand}" Grid.Row="3" Grid.Column="1"></Button>
+
+    </Grid>
+</UserControl>

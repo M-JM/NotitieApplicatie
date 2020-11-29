@@ -1,0 +1,38 @@
+﻿<Window x:Class="NotitieApplicatie.Views.NotitieAppliciatieMainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotitieApplicatie"
+        xmlns:views="clr-namespace:NotitieApplicatie.Views"
+        xmlns:controls="clr-namespace:NotitieApplicatie.Controls"
+        xmlns:viewmodels="clr-namespace:NotitieApplicatie.Viewmodels"
+      
+        mc:Ignorable="d"
+        Title="NotitieApplicatie" Height="450" Width="800">
+    <Window.DataContext>
+        <viewmodels:NotitieApplicatieMainViewmodel></viewmodels:NotitieApplicatieMainViewmodel>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu IsMainMenu="true" DockPanel.Dock="top">
+            <MenuItem Header="File">
+                <MenuItem Header="New Notitieboek" Command="{Binding NotitieBoekCommand}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="New Categorie"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Exit"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="About">
+                <MenuItem Header="Info Application" Command="{Binding InfoCommand}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Restart Database"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <controls:NavigationBar DockPanel.Dock="Top"></controls:NavigationBar>
+
+        <ContentControl Content="{Binding SelectedView}"></ContentControl>
+        
+        
+    </DockPanel>
+   
+</Window>

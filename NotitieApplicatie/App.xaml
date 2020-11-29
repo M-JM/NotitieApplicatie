@@ -1,0 +1,53 @@
+﻿<Application
+    x:Class="NotitieApplicatie.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NotitieApplicatie"
+             xmlns:views="clr-namespace:NotitieApplicatie.Views"
+             xmlns:controls="clr-namespace:NotitieApplicatie.Controls"
+             xmlns:viewmodels="clr-namespace:NotitieApplicatie.Viewmodels"
+             StartupUri="Views/NotitieApplicatieMainView.xaml">
+    
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/CommonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+       
+            <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+                <views:ProfileView></views:ProfileView>
+            </DataTemplate>
+ 
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <views:LoginView></views:LoginView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
+                <views:InfoView></views:InfoView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:NotitieBoekLijstViewModel}">
+                <views:NotitieBoekLijst></views:NotitieBoekLijst>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView></views:HomeView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:NotitieLijstViewModel}">
+                <views:NotitieLijst></views:NotitieLijst>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:NotitieBoekViewModel}">
+                <views:NotitieBoekView></views:NotitieBoekView>
+            </DataTemplate>
+           
+            
+            
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

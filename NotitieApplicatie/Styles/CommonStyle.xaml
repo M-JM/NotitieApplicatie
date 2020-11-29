@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+
+    <Color x:Key="ColorPrimary">#0033cc</Color>
+    <Color x:Key="ColorSecundary">#3366ff</Color>
+    <Color x:Key="ColorSecundaryOnHover">#99b3ff</Color>
+    
+
+    <SolidColorBrush x:Key="BrushPrimary" Color="{StaticResource ColorPrimary}"></SolidColorBrush>
+    <SolidColorBrush x:Key="BrushSecundary" Color="{StaticResource ColorSecundary}"></SolidColorBrush>
+    <SolidColorBrush x:Key="BrushSecundaryOnHover" Color="{StaticResource ColorSecundaryOnHover}"></SolidColorBrush>
+
+    <Style x:Key="Navigation-buttons" TargetType="RadioButton">
+
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Padding" Value="10 5"></Setter>
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="Background" Value="{StaticResource BrushSecundary}"></Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid x:Name="gridMain" Background="{TemplateBinding Background}">
+                        <TextBlock Text="{TemplateBinding Content}" Padding="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                            
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="{StaticResource BrushSecundaryOnHover}" TargetName="gridMain"></Setter>
+                    </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource ColorSecundaryOnHover}" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color">
+                            
+                        </ColorAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource ColorSecundary}" Duration="0:0:0.1" Storyboard.TargetProperty="Background.Color">
+
+                        </ColorAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+        
+        
+    </Style>
+
+
+</ResourceDictionary>
