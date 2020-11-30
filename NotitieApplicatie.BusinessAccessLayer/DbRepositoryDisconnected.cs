@@ -69,6 +69,7 @@ namespace NotitieApplicatie.BusinessAccessLayer
                 {
                     return context.NotitieBoeken
                 .Include(x => x.Notities)
+                .Include(x => x.Eigenaar)
                 .ToList();
                 }
             }

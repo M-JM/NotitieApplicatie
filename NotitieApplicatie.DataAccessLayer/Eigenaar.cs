@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyOwnLib.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,36 @@ using System.Threading.Tasks;
 
 namespace NotitieApplicatie.DataAccessLayer
 {
-   public class Eigenaar
+   public class Eigenaar : ObservableObject
     {
 
         #region Properties & Fields
         public int Id { get; set; }
-        
-        public string Naam { get; set; }
 
-        public string Email { get; set; }
+        
+ 
+        private string _naam;
+
+        public string Naam
+        {
+            get { return _naam; }
+            set
+            {
+                SetProperty(ref _naam, value);
+            }
+        }
+
+        private string _email;
+
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                SetProperty(ref _email, value);
+            }
+        }
+
 
         #endregion
 
@@ -43,7 +65,10 @@ namespace NotitieApplicatie.DataAccessLayer
         #endregion
 
         #region Methods
-
+        public override string ToString()
+        {
+            return $"{Naam}";
+        }
 
 
         #endregion

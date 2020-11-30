@@ -1,4 +1,6 @@
-﻿using NotitieApplicatie.DataAccessLayer;
+﻿using MyOwnLib.Common;
+using NotitieApplicatie.DataAccessLayer;
+using NotitieApplicatie.Viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +9,30 @@ using System.Threading.Tasks;
 
 namespace NotitieApplicatie.Mediator
 {
-    public class Mediator : IMediator
-    {
-        public event EventHandler<MyEventArgs> NotitieBoekArg;
+    public class Mediatora : IMediator 
+    { 
+        private List<BaseViewModel> _participants;
 
-        public event EventHandler<MyEventArgs> NotitieArg;
-
-        public void OnNotitieBoekArg(object sender, NotitieBoek notitieBoek)
+        public Mediatora()
         {
-            (NotitieBoekArg as EventHandler<MyEventArgs>)?
-                .Invoke(sender, new MyEventArgs { NotitieBoek = notitieBoek });
+            _participants = new List<BaseViewModel>();
+
         }
 
-        public void OnNotitieArg(object sender, Notitie notitie)
+        public void AddParticipants(BaseViewModel participant)
         {
-            (NotitieArg as EventHandler<MyEventArgs>)?
-                .Invoke(sender, new MyEventArgs { Notitie = notitie });
+            _participants.Add(participant);
+        }
+
+        public void SendMessageToAllParticipants(string message, BaseViewModel SenderParticipant)
+        {
+            _participants.ForEach(participant =>
+            {
+                if (participant != SenderParticipant)    //don't send message to sender
+                {
+                    participant.ReceiveMessage(message);
+                }
+            });
         }
 
     }

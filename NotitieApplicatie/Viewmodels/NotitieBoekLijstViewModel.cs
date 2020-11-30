@@ -20,6 +20,7 @@ namespace NotitieApplicatie.Viewmodels
             set
             {
                 SetProperty(ref _notitieboeken, value);
+                
             }
         }
 

@@ -13,7 +13,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding Titel}" Grid.Row="0"></TextBlock>
-            <ListBox ItemsSource="{Binding Notities}" Grid.Row="1"></ListBox>
+            <ListBox ItemsSource="{Binding Notities, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"></ListBox>
 
 
         </Grid>

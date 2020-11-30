@@ -1,12 +1,13 @@
 ﻿using MyOwnLib.Common;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NotitieApplicatie.DataAccessLayer
 {
     [Table("Notities")]
-    public class Notitie : ObservableObject
+    public class Notitie : ObservableObject, IDataErrorInfo
     {
         #region Properties & Fields
 
@@ -62,7 +63,10 @@ namespace NotitieApplicatie.DataAccessLayer
 
         public Categorie Categorie { get; set; }
         public Eigenaar Eigenaar { get; set; }
+        
         public NotitieBoek NotitieBoek { get; set; }
+
+       
 
         #endregion
 
@@ -100,6 +104,38 @@ namespace NotitieApplicatie.DataAccessLayer
         {
             return $"{Id} - {Titel} - {Inhoud} - {AangemaaktOp.ToShortDateString()} ";
         }
+
+        #endregion
+
+
+
+        #region Validation
+
+     
+        [NotMapped]
+        public string Error { get { return null; } }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+
+                switch (columnName)
+                {
+                    case "Titel":
+                        if (string.IsNullOrWhiteSpace(Titel))
+                            result = "Gelieve iets in te vullen";
+                        else if (Titel.Length < 3)
+                            result = "Titel moet minstens drie karakters lang zijn";
+                    break;
+                }
+                return result;
+            }
+        }
+
+
+
 
         #endregion
     }

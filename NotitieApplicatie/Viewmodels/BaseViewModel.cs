@@ -30,6 +30,8 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
+       
+
         private String _titel;
 
         public String Titel
@@ -46,6 +48,13 @@ namespace NotitieApplicatie.Viewmodels
             DbRepository = new DbRepositoryDisconnected();
             Titel = "Default Titel";
         }
+
+
+        internal void ReceiveMessage(string message)
+        {
+            Console.WriteLine("i come from BaseViewModel " + message);
+        }
+       
 
     }
 }

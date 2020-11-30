@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 
 namespace MyOwnLib.Common
 {
-	class FullObservableCollection<T> : ObservableCollection<T> where T : ObservableObject
+	public class FullObservableCollection<T> : ObservableCollection<T> where T : ObservableObject
 	{
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{

@@ -1,4 +1,5 @@
 ﻿using MyOwnLib.Common;
+using NotitieApplicatie.Mediator;
 using NotitieApplicatie.Navigator;
 using System;
 using System.Collections.Generic;
@@ -64,13 +65,13 @@ namespace NotitieApplicatie.Viewmodels
         //{
         //    SelectedView = new NotitieBoekViewModel();
         //}
-
-/// <summary>
-/// Parameter komt van de View door gebruik te maken van RelayCommandParameter die aan de Radiobutton van mijn navigatie zijn meegegeven.
-/// Dit komt overeen met de ViewType van mijn Navigator Klasse
-/// 
-/// </summary>
-/// <param name="parameter"></param>
+        protected IMediator mediator;
+        /// <summary>
+        /// Parameter komt van de View door gebruik te maken van RelayCommandParameter die aan de Radiobutton van mijn navigatie zijn meegegeven.
+        /// Dit komt overeen met de ViewType van mijn Navigator Klasse
+        /// 
+        /// </summary>
+        /// <param name="parameter"></param>
 
         private void Routing(object parameter)
         {

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace NotitieApplicatie.Viewmodels
 {
@@ -19,6 +20,8 @@ namespace NotitieApplicatie.Viewmodels
      
         private NotitieBoek _geselecteerdeNotitieBoek;
 
+        private List<Eigenaar> _eigenaars;
+
         public NotitieBoek GeselecteerdeNotitieBoek
         {
             get { return _geselecteerdeNotitieBoek; }
@@ -26,18 +29,16 @@ namespace NotitieApplicatie.Viewmodels
             {
                 SetProperty(ref _geselecteerdeNotitieBoek, value);
                 GeselecteerdeNotitieBoek.PropertyChanged += GeselecteerdeNotitieBoek_PropertyChanged;
+               
                 NotitieBoekGewijzigd = false;
             }
         }
-
-        private ObservableCollection<Notitie> _notities;
-
-        public ObservableCollection<Notitie> Notities
+        public List<Eigenaar> Eigenaars
         {
-            get { return _notities; }
+            get { return _eigenaars; }
             set
             {
-                SetProperty(ref _notities, value);
+                SetProperty(ref _eigenaars, value);
             }
         }
 
@@ -68,6 +69,7 @@ namespace NotitieApplicatie.Viewmodels
         public NotitieBoekViewModel()
         {
             Titel = "mijn geselecteerde notitie boek";
+            Eigenaars = DbRepository.Eigenaarslijst();
             BewaarCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBoekBewaren);
         }
 
@@ -87,7 +89,11 @@ namespace NotitieApplicatie.Viewmodels
 
         private void GeselecteerdeNotitieBoek_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            Console.WriteLine($"changed");
+            Console.WriteLine($"{GeselecteerdeNotitieBoek.Eigenaar.Naam}");
             NotitieBoekGewijzigd = true;
+         
+
         }
 
         #endregion

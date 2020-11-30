@@ -14,11 +14,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ContentControl Content="{Binding NotitieBoekLijst}" Grid.Column="0"></ContentControl>
         <ContentControl Content="{Binding NotitieBoek}" Grid.Column="1"></ContentControl>
+        <ContentControl Content="{Binding NotitieLijst}" Grid.Column="2"></ContentControl>
 
-      
+
 
     </Grid>
 

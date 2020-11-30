@@ -2,6 +2,7 @@
 using NotitieApplicatie.DataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,14 @@ namespace NotitieApplicatie.Viewmodels
 {
     public class ProfileViewModel : BaseViewModel
     {
-
-        private NotitieBoek _notitieBoek;
-        private string _naam;
-        private string _beschrijving;
-        private RelayCommand _maakCommand;
-
         /// <summary>
         /// 
         /// Bedoeling :
         /// 
         /// Input form voor een nieuwe notitieboek
         /// -> Validatie moet gebeuren op velden en de save button moet disabled zijn zolang alle velden niet geldig zijn
-        /// 
+        ///  Probleem met IDataError -> kan niet properties van gerelateerde objecten valideren ...
+        ///  D
         /// 
         /// Verder uitzoeken :
         /// 
@@ -36,14 +32,33 @@ namespace NotitieApplicatie.Viewmodels
         /// Bij IdataErrorInfo moet men een een sting prop hebben ( gebruik maken van NotMapped dataAnnotation ?)
         /// </summary>
 
-        public NotitieBoek NotitieBoek
+        private NotitieBoek _notitieBoek;
+        private string _naam;
+        private string _beschrijving;
+        private RelayCommand _maakCommand;
+        private Eigenaar _eigenaar;
+        private List<Eigenaar> _eigenaars;
+
+        public NotitieBoek NotitieBoekA
         {
             // kan tevens in de ctor van de viewmodel Notitieboek get als new Notitieboek.
-            get { return _notitieBoek ?? (_notitieBoek = new NotitieBoek("","",new Eigenaar("",""))); ; }
+            get { return _notitieBoek ; }
             set
             {
                 SetProperty(ref _notitieBoek, value);
+                NotitieBoekA.PropertyChanged += Notitieboek_Propertychanged;
+                Console.WriteLine("test");
+            }
+        }
 
+        private Boolean _magBewaren;
+
+        public Boolean MagBewaren
+        {
+            get { return _magBewaren; }
+            set
+            {
+                SetProperty(ref _magBewaren, value);
             }
         }
 
@@ -65,8 +80,6 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-        private Eigenaar _eigenaar;
-
         public Eigenaar Eigenaar
         {
             get { return _eigenaar; }
@@ -76,9 +89,6 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-
-        private List<Eigenaar> _eigenaars;
-
         public List<Eigenaar> Eigenaars
         {
             get { return _eigenaars; }
@@ -87,7 +97,6 @@ namespace NotitieApplicatie.Viewmodels
                 SetProperty(ref _eigenaars, value);
             }
         }
-
 
 
         public RelayCommand MaakCommand
@@ -103,29 +112,46 @@ namespace NotitieApplicatie.Viewmodels
         public ProfileViewModel()
         {
             Titel = "Maak een nieuwe Notitieboek";
-            MaakCommand = new RelayCommand(BewaarNotitieBoek);
+            NotitieBoekA = new NotitieBoek("", "", null);
+            MaakCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBewaren);
             Eigenaars = DbRepository.Eigenaarslijst();
+            
         }
 
-
+        private void Notitieboek_Propertychanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Maakt een check of er geen errormessages meer zijn en indien ok, mag bewaren.
+            
+            if (NotitieBoekA.ErrorCollection.All(x => x.Value == null))
+            {
+                MagBewaren = true;
+            }
+            else {
+                MagBewaren = false;
+            }
+        }
 
         private void BewaarNotitieBoek(Object parameter = null)
         {
-            NotitieBoek notitieboek = NotitieBoek;
-
+         
             //new NotitieBoek(Naam, Beschrijving, Eigenaar);
-
-
-            DbRepository.AddNotitieBoek(notitieboek);
+        
+            DbRepository.AddNotitieBoek(NotitieBoekA);
+            MagBewaren = false;
+            NotitieBoekA = new NotitieBoek("", "", null);
 
             // zorgt ervoor dat na update de velden weer leeg zijn door de properties leeg te maken
             // naar eigen method bv. Clear() beter ? 
-            Naam = string.Empty;
-            Beschrijving = string.Empty;
-            Eigenaar = null;
+
+            //Naam = string.Empty;
+            //Beschrijving = string.Empty;
+            //Eigenaar = null;
                
         }
-
+        private Boolean MagNotitieBewaren(object parameter = null)
+        {
+            return MagBewaren;
+        }
 
     }
 }

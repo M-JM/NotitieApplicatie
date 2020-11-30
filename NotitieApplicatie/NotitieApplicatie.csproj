@@ -81,7 +81,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Mediator\EventArgs.cs" />
     <Compile Include="Mediator\IMediator.cs" />
     <Compile Include="Mediator\Mediator.cs" />
     <Compile Include="Navigator\INavigator.cs" />
@@ -128,9 +127,6 @@
     </Compile>
     <Compile Include="Views\RegisterView.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\test.xaml.cs">
-      <DependentUpon>test.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -189,10 +185,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RegisterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
