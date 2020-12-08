@@ -2,25 +2,22 @@
 using NotitieApplicatie.DataAccessLayer;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
-namespace NotitieApplicatie.Viewmodels
+namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 {
-    public class NotitieBoekViewModel : BaseViewModel
+    public class EditNotitieBoekViewModel : BaseViewModel
     {
-   
-        /// <summary>
-        /// Viewmodel voor één Notitieboek -> Moet tevens Viewmodel van notitielijst weergeven.
-        /// 
-        /// </summary>
-     
-        private NotitieBoek _geselecteerdeNotitieBoek;
 
-        private List<Eigenaar> _eigenaars;
+        #region Properties and Variables
+        private readonly NotitieApplicatieMainViewmodel _vm;
+        private NotitieBoek _geselecteerdeNotitieBoek;
+        private Boolean _notitieboekGewijzigd;
+        private RelayCommand _bewaarCommand;
+    
+        private FullObservableCollection<Eigenaar> _eigenaars;
 
         public NotitieBoek GeselecteerdeNotitieBoek
         {
@@ -29,11 +26,21 @@ namespace NotitieApplicatie.Viewmodels
             {
                 SetProperty(ref _geselecteerdeNotitieBoek, value);
                 GeselecteerdeNotitieBoek.PropertyChanged += GeselecteerdeNotitieBoek_PropertyChanged;
+              if(value != null)
+                {
+                    foreach (Eigenaar item in Eigenaars)
+                    {
+                        if(item.Id == value.Eigenaar.Id)
+                        {
+                            GeselecteerdeNotitieBoek.Eigenaar = item;
+                        }
+                    }
+                }
                
-                NotitieBoekGewijzigd = false;
             }
         }
-        public List<Eigenaar> Eigenaars
+
+        public FullObservableCollection<Eigenaar> Eigenaars
         {
             get { return _eigenaars; }
             set
@@ -41,9 +48,6 @@ namespace NotitieApplicatie.Viewmodels
                 SetProperty(ref _eigenaars, value);
             }
         }
-
-
-        private Boolean _notitieboekGewijzigd;
 
         public Boolean NotitieBoekGewijzigd
         {
@@ -54,9 +58,6 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-
-        private RelayCommand _bewaarCommand;
-
         public RelayCommand BewaarCommand
         {
             get { return _bewaarCommand; }
@@ -66,20 +67,45 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-        public NotitieBoekViewModel()
+        private RelayCommand _cancelCommand;
+
+        public RelayCommand CancelCommand
         {
-            Titel = "mijn geselecteerde notitie boek";
-            Eigenaars = DbRepository.Eigenaarslijst();
-            BewaarCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBoekBewaren);
+            get { return _cancelCommand; }
+            set
+            {
+                SetProperty(ref _cancelCommand, value);
+            }
         }
 
 
+
+        #endregion
+
+        #region Constructor
+        public EditNotitieBoekViewModel(NotitieApplicatieMainViewmodel vm, NotitieBoek notitieBoek)
+        {
+            Eigenaars = DbRepository.Eigenaarslijst();
+            GeselecteerdeNotitieBoek = notitieBoek;
+            _vm = vm;
+            Titel = "mijn geselecteerde notitie boek";
+            BewaarCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBoekBewaren);
+            CancelCommand = new RelayCommand(CancelNotitieBoek);
+        }
+
+        #endregion
 
         #region Methods
         private void BewaarNotitieBoek(Object parameter = null)
         {
             DbRepository.UpdateNotitieBoek(GeselecteerdeNotitieBoek);
             NotitieBoekGewijzigd = false;
+            _vm.SelectedView = new HomeViewModel(_vm);
+        }
+
+        private void CancelNotitieBoek(Object parameter = null)
+        {
+            _vm.SelectedView = new HomeViewModel(_vm);
         }
 
         private Boolean MagNotitieBoekBewaren(object parameter = null)
@@ -89,15 +115,12 @@ namespace NotitieApplicatie.Viewmodels
 
         private void GeselecteerdeNotitieBoek_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Console.WriteLine($"changed");
-            Console.WriteLine($"{GeselecteerdeNotitieBoek.Eigenaar.Naam}");
             NotitieBoekGewijzigd = true;
-         
+            Console.WriteLine("i triggered");
 
         }
 
         #endregion
-
 
     }
 }

@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Titel}" Grid.Row="0"></TextBlock>
         <Grid Grid.Row="1">
@@ -23,6 +24,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
             <TextBlock Text="Titel:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
@@ -31,13 +33,15 @@
             
             
             <TextBlock Text="{Binding GeselecteerdeNotitieBoek.Id}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
-            <TextBox Text="{Binding GeselecteerdeNotitieBoek.Naam, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1"></TextBox>
-            <TextBox Text="{Binding GeselecteerdeNotitieBoek.Beschrijving,ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"></TextBox>
-            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Eigenaars ,ValidatesOnDataErrors=True}" DisplayMemberPath="Naam"  SelectedItem="{Binding GeselecteerdeNotitieBoek.Eigenaar, UpdateSourceTrigger=PropertyChanged}">
+            <TextBlock Text="{Binding GeselecteerdeNotitieBoek.Naam, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1"></TextBlock>
+            <TextBlock Text="{Binding GeselecteerdeNotitieBoek.Beschrijving,ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding GeselecteerdeNotitieBoek.Eigenaar}">
 
-            </ComboBox>
+            </TextBlock>
 
             <Button Content="Bewaar" Command="{Binding BewaarCommand}" Grid.Row="4" Grid.Column="0"></Button>
+            <Button Content="Delete" Command="{Binding DeleteCommand}" Grid.Row="4" Grid.Column="1"></Button>
+            <Button Content="Edit" Command="{Binding EditCommand}" Grid.Row="4" Grid.Column="2"></Button>
         </Grid>
     </Grid>
 </UserControl>

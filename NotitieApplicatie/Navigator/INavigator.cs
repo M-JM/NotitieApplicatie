@@ -13,7 +13,7 @@ namespace NotitieApplicatie.Navigator
         Info,
         NotitieBoek,
         Home,
-        Profiel
+        Categorien,
 
     }
 

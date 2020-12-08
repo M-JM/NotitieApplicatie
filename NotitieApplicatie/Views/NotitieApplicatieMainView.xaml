@@ -16,7 +16,7 @@
     <DockPanel>
         <Menu IsMainMenu="true" DockPanel.Dock="top">
             <MenuItem Header="File">
-                <MenuItem Header="New Notitieboek" Command="{Binding NotitieBoekCommand}"></MenuItem>
+                <MenuItem Header="Restart Database" Command="{Binding SwitchCommand}"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="New Categorie"></MenuItem>
                 <Separator></Separator>

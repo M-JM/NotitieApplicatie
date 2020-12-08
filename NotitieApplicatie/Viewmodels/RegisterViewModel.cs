@@ -8,5 +8,6 @@ namespace NotitieApplicatie.Viewmodels
 {
    public class RegisterViewModel : BaseViewModel
     {
+
     }
 }

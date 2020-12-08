@@ -47,12 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbRepositoryConnected.cs" />
     <Compile Include="DbRepositoryDisconnected.cs" />
     <Compile Include="IDbRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyOwnLib.Common\MyOwnLib.Common.csproj">
+      <Project>{44D3B4BC-AEDC-4D87-B3DA-B524E05E43DC}</Project>
+      <Name>MyOwnLib.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NotitieApplicatie.DataAccessLayer\NotitieApplicatie.DataAccessLayer.csproj">
       <Project>{c5e6b0ee-b56e-45d6-a1c2-52ac2fce01a0}</Project>
       <Name>NotitieApplicatie.DataAccessLayer</Name>

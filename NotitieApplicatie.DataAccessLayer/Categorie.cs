@@ -1,22 +1,42 @@
-﻿using System;
+﻿using MyOwnLib.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NotitieApplicatie.DataAccessLayer
 {
-    public class Categorie
+    public class Categorie : ObservableObject
     {
         #region Properties & Fields
 
         public int Id { get; set; }
 
-        public string Naam { get; set; }
+        private string _naam;
 
-        public string Kleur { get; set; }
+        public string Naam
+        {
+            get { return _naam; }
+            set
+            {
+                SetProperty(ref _naam, value);
+            }
+        }
+
+        private string _kleur;
+
+        public string Kleur
+        {
+            get { return _kleur; }
+            set
+            {
+                SetProperty(ref _kleur, value);
+            }
+        }
+
 
         // -> kleuren -> Color datatype. -> Hexademical/RGB/String -> black / orange
         //-> color picker -> HEXADEMICAL -> RGB
-     
+
         #endregion
 
         #region Constructors
@@ -38,10 +58,15 @@ namespace NotitieApplicatie.DataAccessLayer
             Naam = naam;
             Kleur = kleur;
         }
-        
+
         #endregion
 
         #region Methods
+
+        public override string ToString()
+        {
+            return $"{Naam}";
+        }
 
         #endregion
     }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NotitieApplicatie.Viewmodels
+namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 {
     public class NotitieLijstViewModel : BaseViewModel
     {
@@ -20,11 +20,10 @@ namespace NotitieApplicatie.Viewmodels
 				
 				{
 					SetProperty(ref _notities, value);
-				Console.WriteLine("I changed from notitielijst");
+				
 				}
 						
 		}
-
 
 		private NotitieBoek _geselecteerdeNotitieBoek;
 
@@ -34,20 +33,19 @@ namespace NotitieApplicatie.Viewmodels
 			set
 			{
 				SetProperty(ref _geselecteerdeNotitieBoek, value);
+				if(value != null) { 
 				Notities =  new ObservableCollection<Notitie>(DbRepository.Notitielijst().Where(x => x.NotitieBoek.Id == GeselecteerdeNotitieBoek.Id));
+				}
 			}
 		}
 
-	
-
 		public NotitieLijstViewModel()
 		{
-
+			Titel = "Mijn Notities";
 			Notities = new ObservableCollection<Notitie>();
 
 		}
 
-	
 
 	}
 }

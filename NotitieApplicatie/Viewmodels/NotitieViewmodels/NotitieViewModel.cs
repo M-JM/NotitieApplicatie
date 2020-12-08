@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace NotitieApplicatie.Viewmodels
+namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 {
-    public class InfoViewModel : BaseViewModel
+   public class NotitieViewModel : BaseViewModel
     {
-      
+
+
     }
 }

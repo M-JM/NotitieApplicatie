@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace NotitieApplicatie.DataAccessLayer
 {
-    internal class ModelBuilder :DropCreateDatabaseIfModelChanges <NotitieDBContext>
+    internal class ModelBuilder :DropCreateDatabaseAlways <NotitieDBContext>
         
     {
         protected override void Seed(NotitieDBContext context)
         {
             base.Seed(context);
+
+ 
+
 
             List<Eigenaar> eigenaars = new List<Eigenaar>
             {

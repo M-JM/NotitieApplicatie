@@ -4,8 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:NotitieApplicatie"
              xmlns:views="clr-namespace:NotitieApplicatie.Views"
+             xmlns:viewsNotitieBoek="clr-namespace:NotitieApplicatie.Views.NotitieBoekViews"
+             xmlns:viewsCat="clr-namespace:NotitieApplicatie.Views.CategoryViews"
+             xmlns:ViewsNotities="clr-namespace:NotitieApplicatie.Views.NotitieViews"
              xmlns:controls="clr-namespace:NotitieApplicatie.Controls"
              xmlns:viewmodels="clr-namespace:NotitieApplicatie.Viewmodels"
+             xmlns:viewmodelsNotitieBoek="clr-namespace:NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels"
+             xmlns:viewmodelsCat="clr-namespace:NotitieApplicatie.Viewmodels.CategorienViewmodels"
+             xmlns:viewmodelsNot="clr-namespace:NotitieApplicatie.Viewmodels.NotitieViewmodels"
              StartupUri="Views/NotitieApplicatieMainView.xaml">
     
     <Application.Resources>
@@ -15,11 +21,13 @@
                 <ResourceDictionary Source="/Styles/CommonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            
+            
        
             <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
                 <views:ProfileView></views:ProfileView>
             </DataTemplate>
- 
+
             <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <views:LoginView></views:LoginView>
             </DataTemplate>
@@ -28,24 +36,66 @@
                 <views:InfoView></views:InfoView>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewmodels:NotitieBoekLijstViewModel}">
-                <views:NotitieBoekLijst></views:NotitieBoekLijst>
-            </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView></views:HomeView>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewmodels:NotitieLijstViewModel}">
+
+
+            <DataTemplate DataType="{x:Type viewmodelsNotitieBoek:AddNotitieBoekViewModel}">
+                <viewsNotitieBoek:AddNotitieBoekView></viewsNotitieBoek:AddNotitieBoekView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodelsNotitieBoek:EditNotitieBoekViewModel}">
+                <viewsNotitieBoek:EditNotitieBoekView></viewsNotitieBoek:EditNotitieBoekView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodelsNotitieBoek:NotitieBoekLijstViewModel}">
+                <views:NotitieBoekLijst></views:NotitieBoekLijst>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodelsNotitieBoek:NotitieBoekViewModel}">
+                <views:NotitieBoekView></views:NotitieBoekView>
+            </DataTemplate>
+            
+            
+
+            <DataTemplate DataType="{x:Type viewmodelsNot:NotitieLijstViewModel}">
                 <views:NotitieLijst></views:NotitieLijst>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewmodels:NotitieBoekViewModel}">
-                <views:NotitieBoekView></views:NotitieBoekView>
+            <DataTemplate DataType="{x:Type viewmodelsNot:NotitieViewModel}">
+                <ViewsNotities:NotitieView></ViewsNotities:NotitieView>
             </DataTemplate>
-           
+
+            <DataTemplate DataType="{x:Type viewmodelsNot:AddNotitieViewModel}">
+                <ViewsNotities:AddNewNotitie></ViewsNotities:AddNewNotitie>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodelsNot:HomeNotitieViewModel}">
+                <ViewsNotities:HomeNotitieView></ViewsNotities:HomeNotitieView>
+            </DataTemplate>
+    
+
+
+
+            <DataTemplate DataType="{x:Type viewmodelsCat:AddCategoryViewModel}">
+                <viewsCat:AddCategoryView></viewsCat:AddCategoryView>
+            </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewmodelsCat:CategorieLijstViewModel}">
+                <viewsCat:CategorieenLijstView></viewsCat:CategorieenLijstView>
+            </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewmodelsCat:CategorieViewModel}">
+                <viewsCat:CategoryView></viewsCat:CategoryView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodelsCat:HomeCategoryViewModel}">
+                <viewsCat:HomeCategoryView></viewsCat:HomeCategoryView>
+            </DataTemplate>
+         
+
 
         </ResourceDictionary>
 

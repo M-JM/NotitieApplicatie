@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using MyOwnLib.Common;
+using System.Collections.ObjectModel;
 
 namespace NotitieApplicatie.BusinessAccessLayer
 {
@@ -29,9 +31,9 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 context.NotitieBoeken.Add(notitieBoek);
                 
-                // noodzakelijk om EF te laten weten dat de eigenaar die meegeven wordt hier niet weer moet ingevoegd worden als nieuwe record
+                // noodzakelijk om EF te laten weten dat die eigenaar die meegeven wordt hier niet weer moet ingevoegd worden als nieuwe record
                 // Dit komt omdate de context alleen notitieboek trackt en dus niets weet van Eigenaar context (dus kan niet weten of hij reeds besta)
-                // door de eigenaar "vast te hangen" aan de notitieboek context zal deze niet als een nieuwe record inserten bij SaveChanges.
+                // door de eigenaar "vast te hangen" aan de notitieboek context zal deze niet als een nieuwe record nserten bij SaveChanges.
 
                 //https://stackoverflow.com/questions/7884887/prevent-entity-framework-to-insert-values-for-navigational-properties
                 //https://entityframework.net/knowledge-base/48816929/prevent-adding-new-record-on-related-table-entity-in-entity-framework
@@ -63,14 +65,14 @@ namespace NotitieApplicatie.BusinessAccessLayer
             }
         }
 
-        public List<NotitieBoek> Notitieboeklijst()
+        public FullObservableCollection<NotitieBoek> Notitieboeklijst()
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                    return context.NotitieBoeken
+                return new FullObservableCollection<NotitieBoek>(context.NotitieBoeken
                 .Include(x => x.Notities)
                 .Include(x => x.Eigenaar)
-                .ToList();
+                .ToList());
                 }
             }
 
@@ -84,30 +86,30 @@ namespace NotitieApplicatie.BusinessAccessLayer
                 }
             }
 
-            public List<Notitie> Notitielijst()
+            public ObservableCollection<Notitie> Notitielijst()
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                    return context.Notities
+                    return new ObservableCollection<Notitie>( context.Notities
                     .Include(x => x.NotitieBoek)
                     .Include(x => x.Categorie)
                     .Include(x => x.Eigenaar)
-                    .ToList();
+                    .ToList());
                 }
             }
-            public List<Categorie> Categorieenlijst()
+            public FullObservableCollection<Categorie> Categorieenlijst()
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                    return context.Categorieen.ToList();
+                    return new FullObservableCollection<Categorie>(context.Categorieen.ToList());
                 }
             }
 
-        public List<Eigenaar> Eigenaarslijst()
+        public FullObservableCollection<Eigenaar> Eigenaarslijst()
         {
             using (NotitieDBContext context = new NotitieDBContext())
             {
-                return context.Eigenaars.ToList();
+                return new FullObservableCollection<Eigenaar>(context.Eigenaars.ToList());
             }
         }
 
@@ -128,16 +130,18 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+
                 if (!context.NotitieBoeken.Local.Contains(notitieBoek))
                 {
+                    context.Eigenaars.Attach(notitieBoek.Eigenaar);
                     context.NotitieBoeken.Attach(notitieBoek);
                     context.Entry(notitieBoek).State = EntityState.Modified;
                 }
-                    context.SaveChanges();
-                    return notitieBoek;
+                context.SaveChanges();
+                return notitieBoek;
 
-                }
             }
+        }
 
             public Categorie UpdateCategorie(Categorie categorie)
             {
@@ -156,6 +160,8 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+               
+
                     context.Notities.Remove(notitie);
                     context.SaveChanges();
                 }
@@ -165,8 +171,16 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+                   if((notitieBoek = context.NotitieBoeken.Include(x => x.Notities).FirstOrDefault( x => x.Id == notitieBoek.Id)) != null)
+                {
+                    foreach (var child in notitieBoek.Notities.ToList())
+                    context.Notities.Remove(child);
+                    context.SaveChanges();
                     context.NotitieBoeken.Remove(notitieBoek);
                     context.SaveChanges();
+
+                }
+              
                 }
             }
 

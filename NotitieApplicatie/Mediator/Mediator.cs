@@ -24,6 +24,19 @@ namespace NotitieApplicatie.Mediator
             _participants.Add(participant);
         }
 
+        // Verander de eerste parameter in een Object zodat ik objecten door kan geven ?)
+
+        public void SendMessageToAllParticipants(string message,object Object, BaseViewModel SenderParticipant)
+        {
+            _participants.ForEach(participant =>
+            {
+                if (participant != SenderParticipant)    //don't send message to sender
+                {
+                    participant.ReceiveMessage(message,Object);
+                }
+            });
+        }
+
         public void SendMessageToAllParticipants(string message, BaseViewModel SenderParticipant)
         {
             _participants.ForEach(participant =>
@@ -34,6 +47,5 @@ namespace NotitieApplicatie.Mediator
                 }
             });
         }
-
     }
 }

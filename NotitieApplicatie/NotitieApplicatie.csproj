@@ -60,6 +60,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=18.3460.0.53, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.18.3.0.53\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=18.3460.0.53, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF.18.3.0.53\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -85,16 +91,35 @@
     <Compile Include="Mediator\Mediator.cs" />
     <Compile Include="Navigator\INavigator.cs" />
     <Compile Include="Navigator\Navigator.cs" />
+    <Compile Include="Viewmodels\CategorienViewmodels\AddCategoryViewModel.cs" />
+    <Compile Include="Viewmodels\CategorienViewmodels\CategorieLijstViewModel.cs" />
+    <Compile Include="Viewmodels\CategorienViewmodels\CategorieViewModel.cs" />
+    <Compile Include="Viewmodels\CategorienViewmodels\EditCategoryViewModel.cs" />
+    <Compile Include="Viewmodels\CategorienViewmodels\HomeCategoryViewModel.cs" />
     <Compile Include="Viewmodels\HomeViewModel.cs" />
     <Compile Include="Viewmodels\InfoViewModel.cs" />
     <Compile Include="Viewmodels\LoginViewModel.cs" />
     <Compile Include="Viewmodels\NotitieApplicatieMainViewmodel.cs" />
     <Compile Include="Viewmodels\BaseViewModel.cs" />
-    <Compile Include="Viewmodels\NotitieBoekLijstViewModel.cs" />
-    <Compile Include="Viewmodels\NotitieBoekViewModel.cs" />
-    <Compile Include="Viewmodels\NotitieLijstViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieBoekenViewmodels\AddNotitieBoekViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieBoekenViewmodels\EditNotitieBoekViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieBoekenViewmodels\NotitieBoekLijstViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieBoekenViewmodels\NotitieBoekViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieViewmodels\AddNotitieViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieViewmodels\HomeNotitieViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieViewmodels\NotitieLijstViewModel.cs" />
+    <Compile Include="Viewmodels\NotitieViewmodels\NotitieViewModel.cs" />
     <Compile Include="Viewmodels\ProfileViewModel.cs" />
     <Compile Include="Viewmodels\RegisterViewModel.cs" />
+    <Compile Include="Views\CategoryViews\AddCategoryView.xaml.cs">
+      <DependentUpon>AddCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryViews\CategorieenLijstView.xaml.cs">
+      <DependentUpon>CategorieenLijstView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryViews\CategoryView.xaml.cs">
+      <DependentUpon>CategoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -110,16 +135,31 @@
     <Compile Include="Views\NotitieApplicatieMainView.xaml.cs">
       <DependentUpon>NotitieApplicatieMainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NotitieBoekLijst.cs">
+    <Compile Include="Views\NotitieBoekViews\AddNotitieBoekView.xaml.cs">
+      <DependentUpon>AddNotitieBoekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotitieBoekViews\EditNotitieBoekView.xaml.cs">
+      <DependentUpon>EditNotitieBoekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryViews\HomeCategoryView.xaml.cs">
+      <DependentUpon>HomeCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotitieBoekViews\NotitieBoekLijst.cs">
       <DependentUpon>NotitieBoekLijstView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NotitieBoekView.xaml.cs">
+    <Compile Include="Views\NotitieBoekViews\NotitieBoekView.xaml.cs">
       <DependentUpon>NotitieBoekView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NotitieLijstView.xaml.cs">
       <DependentUpon>NotitieLijstView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NotitieView.cs">
+    <Compile Include="Views\NotitieViews\AddNewNotitieView.xaml.cs">
+      <DependentUpon>AddNewNotitieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotitieViews\HomeNotitieView.xaml.cs">
+      <DependentUpon>HomeNotitieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotitieViews\NotitieView.xaml.cs">
       <DependentUpon>NotitieView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProfileView.xaml.cs">
@@ -144,6 +184,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CategoryViews\AddCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryViews\CategorieenLijstView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryViews\CategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -164,11 +216,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NotitieBoekLijstView.xaml">
+    <Page Include="Views\NotitieBoekViews\AddNotitieBoekView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NotitieBoekView.xaml">
+    <Page Include="Views\NotitieBoekViews\EditNotitieBoekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryViews\HomeCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotitieBoekViews\NotitieBoekLijstView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotitieBoekViews\NotitieBoekView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,7 +240,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NotitieView.xaml">
+    <Page Include="Views\NotitieViews\AddNewNotitieView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotitieViews\HomeNotitieView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotitieViews\NotitieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

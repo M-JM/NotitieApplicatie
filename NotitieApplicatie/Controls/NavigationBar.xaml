@@ -30,7 +30,7 @@
             <RadioButton Grid.Column="0" Content="Home" Command="{Binding ViewCommand}" CommandParameter="{x:Static Nav:ViewType.Home }"></RadioButton>
             <RadioButton Grid.Column="1" Content="Mijn NotitieBoeken" Command="{Binding ViewCommand}" CommandParameter="{x:Static Nav:ViewType.NotitieBoek }"></RadioButton>
             <RadioButton Grid.Column="2" Content="Mijn Notities" Command="{Binding ViewCommand}" CommandParameter="{x:Static Nav:ViewType.Info }"></RadioButton>
-            <RadioButton Grid.Column="3" Content="Mijn Profiel" Command="{Binding ViewCommand}" CommandParameter="{x:Static Nav:ViewType.Profiel }"></RadioButton>
+            <RadioButton Grid.Column="3" Content="Mijn Categorien" Command="{Binding ViewCommand}" CommandParameter="{x:Static Nav:ViewType.Categorien }"></RadioButton>
           
 
         </Grid>

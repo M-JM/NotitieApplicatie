@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace NotitieApplicatie.Viewmodels
-{
-    public class InfoViewModel : BaseViewModel
+namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
+{ 
+    class EditCategoryViewModel : BaseViewModel
     {
-      
     }
 }

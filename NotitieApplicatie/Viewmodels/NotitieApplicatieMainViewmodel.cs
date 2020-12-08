@@ -1,6 +1,9 @@
 ﻿using MyOwnLib.Common;
 using NotitieApplicatie.Mediator;
 using NotitieApplicatie.Navigator;
+using NotitieApplicatie.Viewmodels.CategorienViewmodels;
+using NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels;
+using NotitieApplicatie.Viewmodels.NotitieViewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +34,7 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
+      
         private BaseViewModel _selectedView;
 
         public BaseViewModel SelectedView
@@ -65,7 +69,9 @@ namespace NotitieApplicatie.Viewmodels
         //{
         //    SelectedView = new NotitieBoekViewModel();
         //}
+
         protected IMediator mediator;
+
         /// <summary>
         /// Parameter komt van de View door gebruik te maken van RelayCommandParameter die aan de Radiobutton van mijn navigatie zijn meegegeven.
         /// Dit komt overeen met de ViewType van mijn Navigator Klasse
@@ -75,29 +81,32 @@ namespace NotitieApplicatie.Viewmodels
 
         private void Routing(object parameter)
         {
-            if(parameter is ViewType)
+            if (parameter is ViewType viewType)
             {
-                ViewType viewType = (ViewType)parameter;
                 switch (viewType)
                 {
                     case ViewType.Info:
-                        SelectedView = new InfoViewModel();
+                        SelectedView = new HomeNotitieViewModel(this);
                         break;
                     case ViewType.NotitieBoek:
-                        SelectedView = new NotitieBoekLijstViewModel();
+                        SelectedView = new NotitieBoekLijstViewModel(this);
                         break;
-                    case ViewType.Profiel:
-                        SelectedView = new ProfileViewModel();
+                    case ViewType.Categorien:
+                        SelectedView = new HomeCategoryViewModel(this);
                         break;
                     case ViewType.Home:
-                        SelectedView = new HomeViewModel();
+                        SelectedView = new HomeViewModel(this);
                         break;
                     // Default
                     default:
-                         SelectedView = new HomeViewModel();
+                        SelectedView = new HomeViewModel(this);
                         break;
 
                 }
+            }
+            else
+            {
+                SelectedView = new HomeViewModel(this);
             }
         }
 

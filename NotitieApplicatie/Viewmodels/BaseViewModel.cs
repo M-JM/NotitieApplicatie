@@ -1,6 +1,8 @@
 ﻿using MyOwnLib.Common;
 using NotitieApplicatie.BusinessAccessLayer;
+using NotitieApplicatie.Mediator;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,14 +13,7 @@ namespace NotitieApplicatie.Viewmodels
 {
     public class BaseViewModel : ObservableObject
     {
-        /// <summary>
-        ///     Base Klasse die alle ViewModels gaan erven.
-        ///     Zorgt ervoor dat bij  ViewModels wij toegang hebben tot de DbRepository en de facto een property Titel definieren die waarde default krijgen.
-        ///     Het is wel de bedoeling deze waarde te setten naar iets deftig , maar indien ik het vergeet dat er toch een default titel is.
-        ///        
-        /// 
-        /// </summary>
-
+  
         private IDbRepository _dbRepository;
 
         public IDbRepository DbRepository
@@ -30,10 +25,9 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-       
-
         private String _titel;
-
+        private IMediator _mediator;
+        
         public String Titel
         {
             get { return _titel; }
@@ -43,18 +37,29 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
+      
+
         public BaseViewModel()
         {
             DbRepository = new DbRepositoryDisconnected();
             Titel = "Default Titel";
         }
 
-
-        internal void ReceiveMessage(string message)
+        public BaseViewModel(IMediator mediator)
         {
-            Console.WriteLine("i come from BaseViewModel " + message);
+            _mediator = mediator;
         }
-       
 
+        public string ReceiveMessage(string message, object @object)
+        {
+            return message;
+        }
+
+        internal string ReceiveMessage(string message)
+        {
+            return message;
+        }
+
+     
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 
@@ -6,6 +7,17 @@ namespace MyOwnLib.Common
 {
 	public class FullObservableCollection<T> : ObservableCollection<T> where T : ObservableObject
 	{
+
+		public FullObservableCollection()
+		{
+		}
+		public FullObservableCollection(List<T> list)
+		{
+			foreach (T item in list)
+			this.Add(item);
+		}
+
+
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{
 			base.OnCollectionChanged(e);

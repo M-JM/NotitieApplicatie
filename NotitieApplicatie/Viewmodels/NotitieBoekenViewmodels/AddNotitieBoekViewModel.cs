@@ -7,47 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NotitieApplicatie.Viewmodels
+namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 {
-    public class ProfileViewModel : BaseViewModel
+    public class AddNotitieBoekViewModel : BaseViewModel
     {
-        /// <summary>
-        /// 
-        /// Bedoeling :
-        /// 
-        /// Input form voor een nieuwe notitieboek
-        /// -> Validatie moet gebeuren op velden en de save button moet disabled zijn zolang alle velden niet geldig zijn
-        ///  Probleem met IDataError -> kan niet properties van gerelateerde objecten valideren ...
-        ///  D
-        /// 
-        /// Verder uitzoeken :
-        /// 
-        /// Twee manieren om te binden naar input velden
-        /// Oftewel de Notitieboek object instanceren en de properties ervan updaten door middel van Binding
-        /// 
-        /// Oftewel de properties van een notitieboek declareren en individueel updaten
-        /// De ctor van notitieboek oproepen , properties meegeven als parameter in de ctor en het object doorgeven.
-        /// 
-        /// -> probleem is door het niet gebruiken van DTO en meteen de models te gebruiken uit datalaag is dat validatie regels daar worden geschreven.
-        /// Bij IdataErrorInfo moet men een een sting prop hebben ( gebruik maken van NotMapped dataAnnotation ?)
-        /// </summary>
-        /// 
+
+        #region Properties & Variables
+
+        private readonly NotitieApplicatieMainViewmodel _vm;
         private NotitieBoek _notitieBoek;
         private string _naam;
         private string _beschrijving;
         private RelayCommand _maakCommand;
+        private RelayCommand _cancelCommand;
         private Eigenaar _eigenaar;
         private FullObservableCollection<Eigenaar> _eigenaars;
 
         public NotitieBoek NotitieBoekA
         {
-            // kan tevens in de ctor van de viewmodel Notitieboek get als new Notitieboek.
-            get { return _notitieBoek ; }
+          
+            get { return _notitieBoek; }
             set
             {
                 SetProperty(ref _notitieBoek, value);
-                NotitieBoekA.PropertyChanged += Notitieboek_Propertychanged;
-               
+              NotitieBoekA.PropertyChanged += Notitieboek_Propertychanged;
+                Console.WriteLine("I raised prop change");
+
             }
         }
 
@@ -97,8 +82,7 @@ namespace NotitieApplicatie.Viewmodels
                 SetProperty(ref _eigenaars, value);
             }
         }
-
-
+        
         public RelayCommand MaakCommand
         {
             get { return _maakCommand; }
@@ -108,53 +92,85 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-
-        public ProfileViewModel()
+        public RelayCommand CancelCommand
         {
+            get { return _cancelCommand; }
+            set
+            {
+                SetProperty(ref _cancelCommand, value);
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+        public AddNotitieBoekViewModel(NotitieApplicatieMainViewmodel vm)
+        {
+            _vm = vm;
             Titel = "Maak een nieuwe Notitieboek";
             NotitieBoekA = new NotitieBoek("", "", null);
             MaakCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBewaren);
+            CancelCommand = new RelayCommand(CancelAddBoek);
             Eigenaars = DbRepository.Eigenaarslijst();
-            
         }
+
+        #endregion
+
+        #region Methods
 
         private void Notitieboek_Propertychanged(object sender, PropertyChangedEventArgs e)
         {
+
+            Console.WriteLine("I came from the actual prop change");
+            Console.WriteLine(NotitieBoekA.Naam);
+            Console.WriteLine(NotitieBoekA.HasErrors);
+       
             // Maakt een check of er geen errormessages meer zijn en indien ok, mag bewaren.
-            
+
             if (NotitieBoekA.HasErrors)
             {
-                MagBewaren = true;
-            }
-            else {
                 MagBewaren = false;
+            }
+            else
+            {
+                MagBewaren = true;
             }
         }
 
         private void BewaarNotitieBoek(Object parameter = null)
         {
-         
+
             //new NotitieBoek(Naam, Beschrijving, Eigenaar);
-        
+
             DbRepository.AddNotitieBoek(NotitieBoekA);
-          
+
             // Command button naar false zodat hij weer disabled is.
             MagBewaren = false;
 
             // zorgt ervoor dat na update de velden weer leeg zijn.
-            NotitieBoekA = new NotitieBoek("", "", null);
-                    
+            //NotitieBoekA = new NotitieBoek("", "", null);
+            _vm.SelectedView = new HomeViewModel(_vm);
 
             // Idien ik niet de class gebruik -> properties van viewmodel naar eigen method bv. Clear() beter ? 
             //Naam = string.Empty;
             //Beschrijving = string.Empty;
             //Eigenaar = null;
-               
+
         }
+
+        private void CancelAddBoek(Object parameter = null)
+        {
+            _vm.SelectedView = new HomeViewModel(_vm);
+
+        }
+
         private Boolean MagNotitieBewaren(object parameter = null)
         {
             return MagBewaren;
         }
+
+        #endregion
+
 
     }
 }

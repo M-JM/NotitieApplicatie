@@ -9,11 +9,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Titel}" Grid.Row="0"></TextBlock>
+        <TextBlock Text="{Binding Titel}" FontSize="40" FontWeight="Bold" Grid.Row="0"></TextBlock>
         <ListBox ItemsSource="{Binding Notitieboeken}" SelectedItem="{Binding GeselecteerdeNotitieBoek}" Grid.Row="1"></ListBox>
-
+        <Button Content="Nieuwe NotitieBoek" Command="{Binding AddNotitieBoekCommand}" Grid.Row="2"></Button>
 
     </Grid>
 </UserControl>

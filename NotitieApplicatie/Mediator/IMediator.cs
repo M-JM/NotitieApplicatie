@@ -9,5 +9,7 @@ namespace NotitieApplicatie.Mediator
     {
         void AddParticipants(BaseViewModel participant);
         void SendMessageToAllParticipants(string message, BaseViewModel SenderParticipant);
+        void SendMessageToAllParticipants(string message, object Object, BaseViewModel SenderParticipant);
+
     }
 }

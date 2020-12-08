@@ -1,8 +1,11 @@
 ﻿using NotitieApplicatie.DataAccessLayer;
 using NotitieApplicatie.Mediator;
+using NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels;
+using NotitieApplicatie.Viewmodels.NotitieViewmodels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,10 @@ namespace NotitieApplicatie.Viewmodels
 {
     public class HomeViewModel: BaseViewModel
     {
+
+        #region Props & Variables
+
+        private readonly NotitieApplicatieMainViewmodel _vm;
 
         private BaseViewModel _notitieBoek;
 
@@ -44,52 +51,57 @@ namespace NotitieApplicatie.Viewmodels
                 SetProperty(ref _notitieLijst, value);
             }
         }
+        #endregion
 
-        protected IMediator Mediator;
-
-        public HomeViewModel()
+        #region Constructor
+        public HomeViewModel(NotitieApplicatieMainViewmodel vm)
         {
-            IMediator Mediator = new Mediatora();
-            this.Mediator = Mediator;
-            
-            NotitieBoekLijst = new NotitieBoekLijstViewModel();
-            NotitieBoek = new NotitieBoekViewModel();
+
+            _vm = vm;
+            NotitieBoekLijst = new NotitieBoekLijstViewModel(_vm);
+            NotitieBoek = new NotitieBoekViewModel(_vm);
             NotitieLijst = new NotitieLijstViewModel();
-            Mediator.AddParticipants(NotitieBoekLijst);
-            Mediator.AddParticipants(NotitieBoek);
-            Mediator.AddParticipants(NotitieLijst);
+
             NotitieBoekLijst.PropertyChanged += NotitieBoekLijst_PropertyChanged;
-          //  NotitieBoek.PropertyChanged += NotitieBoek_PropertyChanged;
-            NotitieLijst.PropertyChanged += NotitieLijst_PropertyChanged;
+            NotitieBoek.PropertyChanged += NotitieBoek_PropertyChanged;
+        }
+        #endregion
+
+        #region Methods
+
+        private void NotitieBoek_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "VerwijderdeNotitieboek":
+                    (NotitieBoekLijst as NotitieBoekLijstViewModel).VerwijderdeNotitieboek = (NotitieBoek as NotitieBoekViewModel).VerwijderdeNotitieboek;
+
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void NotitieBoekLijst_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Mediator.SendMessageToAllParticipants("test", NotitieBoekLijst);
-                                 
+
             switch (e.PropertyName)
             {
                 case "GeselecteerdeNotitieBoek":
                     (NotitieBoek as NotitieBoekViewModel).GeselecteerdeNotitieBoek = (NotitieBoekLijst as NotitieBoekLijstViewModel).GeselecteerdeNotitieBoek;
                     (NotitieLijst as NotitieLijstViewModel).GeselecteerdeNotitieBoek = (NotitieBoekLijst as NotitieBoekLijstViewModel).GeselecteerdeNotitieBoek;
                     break;
+
                 default:
                     break;
             }
         }
-        private void NotitieBoek_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            Mediator.SendMessageToAllParticipants("Blabla", NotitieBoek);
 
-    
-        }
-
-        private void NotitieLijst_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            Mediator.SendMessageToAllParticipants("aaaaa", NotitieLijst);
+        #endregion
 
 
-        }
+
+
 
 
 

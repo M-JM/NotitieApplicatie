@@ -13,5 +13,11 @@ namespace NotitieApplicatie
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzYzNjcyQDMxMzgyZTMzMmUzMFVYOW8yYTB3ZWdjRFliTkszUFpHTzgxYkhGK3QwdWVTN0ZaNjNtNnB2eWs9");
+        }
+
+
     }
 }

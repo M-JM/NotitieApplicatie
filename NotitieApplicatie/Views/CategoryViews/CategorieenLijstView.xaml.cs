@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NotitieApplicatie.Views
+namespace NotitieApplicatie.Views.CategoryViews
 {
     /// <summary>
-    /// Interaction logic for NotitieView.xaml
+    /// Interaction logic for CategorieenLijstView.xaml
     /// </summary>
-    public partial class NotitieView : UserControl
+    public partial class CategorieenLijstView : UserControl
     {
-        public NotitieView()
+        public CategorieenLijstView()
         {
             InitializeComponent();
         }

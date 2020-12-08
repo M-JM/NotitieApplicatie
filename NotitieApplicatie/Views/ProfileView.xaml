@@ -19,9 +19,9 @@
             <ColumnDefinition Width="13*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Naam" Margin="30" HorizontalAlignment="Right" />
+        <TextBlock Text="Naam"  HorizontalAlignment="Right" />
         <StackPanel Grid.Column="1">
-            <TextBox  Margin="30,10,10,10" Text="{Binding NotitieBoekA.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" ToolTip="{Binding NotitieBoekA.ErrorCollection[Naam]}" />
+            <TextBox  Text="{Binding NotitieBoekA.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" ToolTip="{Binding NotitieBoekA.ErrorCollection[Naam]}" />
         </StackPanel>
 
         <TextBlock Text="Beschrijving" Grid.Row="1"/>
