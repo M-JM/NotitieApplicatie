@@ -16,21 +16,18 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 
         private readonly NotitieApplicatieMainViewmodel _vm;
         private NotitieBoek _notitieBoek;
-        private string _naam;
-        private string _beschrijving;
         private RelayCommand _maakCommand;
         private RelayCommand _cancelCommand;
-        private Eigenaar _eigenaar;
         private FullObservableCollection<Eigenaar> _eigenaars;
 
-        public NotitieBoek NotitieBoekA
+        public NotitieBoek NotitieBoek
         {
           
             get { return _notitieBoek; }
             set
             {
                 SetProperty(ref _notitieBoek, value);
-              NotitieBoekA.PropertyChanged += Notitieboek_Propertychanged;
+              NotitieBoek.PropertyChanged += Notitieboek_Propertychanged;
                 Console.WriteLine("I raised prop change");
 
             }
@@ -44,33 +41,6 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             set
             {
                 SetProperty(ref _magBewaren, value);
-            }
-        }
-
-        public string Naam
-        {
-            get { return _naam; }
-            set
-            {
-                SetProperty(ref _naam, value);
-            }
-        }
-
-        public string Beschrijving
-        {
-            get { return _beschrijving; }
-            set
-            {
-                SetProperty(ref _beschrijving, value);
-            }
-        }
-
-        public Eigenaar Eigenaar
-        {
-            get { return _eigenaar; }
-            set
-            {
-                SetProperty(ref _eigenaar, value);
             }
         }
 
@@ -108,7 +78,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         {
             _vm = vm;
             Titel = "Maak een nieuwe Notitieboek";
-            NotitieBoekA = new NotitieBoek("", "", null);
+            NotitieBoek = new NotitieBoek("", "", null);
             MaakCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBewaren);
             CancelCommand = new RelayCommand(CancelAddBoek);
             Eigenaars = DbRepository.Eigenaarslijst();
@@ -120,14 +90,8 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 
         private void Notitieboek_Propertychanged(object sender, PropertyChangedEventArgs e)
         {
-
-            Console.WriteLine("I came from the actual prop change");
-            Console.WriteLine(NotitieBoekA.Naam);
-            Console.WriteLine(NotitieBoekA.HasErrors);
-       
-            // Maakt een check of er geen errormessages meer zijn en indien ok, mag bewaren.
-
-            if (NotitieBoekA.HasErrors)
+            Console.WriteLine(NotitieBoek.HasErrors);
+            if (NotitieBoek.HasErrors)
             {
                 MagBewaren = false;
             }
@@ -137,24 +101,22 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             }
         }
 
+
+
+
         private void BewaarNotitieBoek(Object parameter = null)
         {
 
-            //new NotitieBoek(Naam, Beschrijving, Eigenaar);
+           
 
-            DbRepository.AddNotitieBoek(NotitieBoekA);
+            DbRepository.AddNotitieBoek(NotitieBoek);
 
             // Command button naar false zodat hij weer disabled is.
-            MagBewaren = false;
 
-            // zorgt ervoor dat na update de velden weer leeg zijn.
-            //NotitieBoekA = new NotitieBoek("", "", null);
+            MagBewaren = false;
             _vm.SelectedView = new HomeViewModel(_vm);
 
-            // Idien ik niet de class gebruik -> properties van viewmodel naar eigen method bv. Clear() beter ? 
-            //Naam = string.Empty;
-            //Beschrijving = string.Empty;
-            //Eigenaar = null;
+     
 
         }
 

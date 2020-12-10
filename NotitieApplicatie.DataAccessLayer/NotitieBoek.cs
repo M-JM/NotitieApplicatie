@@ -27,8 +27,8 @@ namespace NotitieApplicatie.DataAccessLayer
             get { return _naam; }
             set
             {
+               
                 ClearErrors(nameof(Naam));
-
                 SetProperty(ref _naam, value);
                 if (String.IsNullOrEmpty(value))
                 {
@@ -39,6 +39,14 @@ namespace NotitieApplicatie.DataAccessLayer
                     AddError(nameof(Naam), "Mag niet minder dan 5 karakters zijn");
 
                 }
+                // Due to property change being triggered by the observable class before validation is performed the Error.count of the dictionary is only updated after the prop. change has occured
+                // If i want to use the count to do a check if it can be saved in the propertychange event , i need to trigger it again.
+                // This is due to poor implementation of InotifyDataErrorInfo....
+                // TODO: This has to be fixed properly -> ask teacher if he can maybe point me in the right direction ??
+
+                OnPropertyChanged(nameof(Naam));
+                
+
             }
         }
 
@@ -57,7 +65,7 @@ namespace NotitieApplicatie.DataAccessLayer
                 {
                     AddError(nameof(Beschrijving), "Mag maar 50 karakters lang zijn");
                 }
-            
+                OnPropertyChanged(nameof(Beschrijving));
             }
         }
 
@@ -80,6 +88,7 @@ namespace NotitieApplicatie.DataAccessLayer
                 {
                     AddError(nameof(Eigenaar), "Moet een eigenaar hebben");
                 }
+              
             }
         }
 

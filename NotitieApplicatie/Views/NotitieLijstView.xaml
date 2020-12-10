@@ -4,20 +4,91 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NotitieApplicatie.Views"
+              xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type syncfusion:CardViewItem}" x:Key="CardViewItemStyle">
+            <Setter Property="Height" Value="350"/>
+            <Setter Property="Width" Value="300"/>
+        </Style>
+
+    </UserControl.Resources>
+
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Titel}" Grid.Row="0"></TextBlock>
-            <ListBox ItemsSource="{Binding Notities, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"></ListBox>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <TextBlock Background="{StaticResource BrushTitel}"  Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="0" Text="{Binding Titel}" ></TextBlock>
 
-        </Grid>
+        
+     
+        
+        <syncfusion:CardView Grid.Row="1"  Orientation="Horizontal" ItemContainerStyle="{StaticResource CardViewItemStyle}" ItemsSource="{Binding Notities}" ShowHeader="False" >
+             
+                    <syncfusion:CardView.ItemTemplate>
+           
+                    <DataTemplate>
+                        <ListBox Height="400">
+                            <ListBoxItem HorizontalContentAlignment="Stretch">
+                                <StackPanel Orientation="Vertical" >
+                                    <TextBlock FontWeight="Bold" Text="Titel:"/>
+                                    <TextBlock Text="{Binding Titel}" Margin="0,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem >
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBlock Text="Inhoud:" FontWeight="Bold"/>
 
+                                    <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="{Binding Inhoud}" Margin="0,5,0,0"/>
 
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem >
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBlock FontWeight="Bold" Text="Datum Aangemaakt:"/>
+                                    <TextBlock  Text="{Binding AangemaaktOp}" Margin="0,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem >
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Height="50">
+                                    <TextBlock FontWeight="Bold" Text="Category:"/>
+                                    <TextBlock  Text="{Binding Categorie.Naam}" Margin="0,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem >
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Height="50">
+                                    <TextBlock FontWeight="Bold" Text="Eigenaar:"/>
+                                    <TextBlock  Text="{Binding Eigenaar.Naam}" Margin="0,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                    </DataTemplate>
+               
+            </syncfusion:CardView.ItemTemplate>
+
+                    <syncfusion:CardView.HeaderTemplate>
+
+                        <DataTemplate>
+                            <Grid>
+
+                                <Border BorderBrush="Black" BorderThickness="10" Background="{Binding Categorie.Kleur}">
+
+                                    <TextBlock Text="{Binding Titel}" Margin="5" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Bookman Old Style" Grid.Column="1"/>
+
+                                </Border>
+
+                            </Grid>
+                        </DataTemplate>
+                    </syncfusion:CardView.HeaderTemplate>
+                
+            </syncfusion:CardView>
+       
     </Grid>
+
+
 </UserControl>

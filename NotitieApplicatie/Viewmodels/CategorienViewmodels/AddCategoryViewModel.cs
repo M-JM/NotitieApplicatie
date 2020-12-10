@@ -57,7 +57,7 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
 
         private void CancelAddCategory(Object parameter = null)
         {
-            _vm.SelectedView = new HomeViewModel(_vm);
+            _vm.SelectedView = new HomeCategoryViewModel(_vm);
         }
 
         private void BewaarCategorie(Object parameter = null)

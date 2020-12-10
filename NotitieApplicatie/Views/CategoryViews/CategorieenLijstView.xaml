@@ -10,9 +10,34 @@
     
     
     <Grid>
-        
-        
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Background="{StaticResource BrushTitel}"  Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="0" Text="{Binding Titel}" ></TextBlock>
+        <Button Command="{Binding AddCategoryCommand}" Grid.Row="1" Margin="10,10,10,10" Content="Nieuwe Categorie" HorizontalAlignment="Left"></Button>
+        
+        <ListBox ItemsSource="{Binding CategorieLijst}" SelectedItem="{Binding GeselecteerdeCategorie}" Grid.Row="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="20" Height="20">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding Kleur}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding Naam}" />
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -35,7 +60,7 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-        <Button Content="Nieuwe Category" Command="{Binding AddCategoryCommand}" Grid.Row="2"></Button>
+        <Button Content="Nieuwe Category" Command="{Binding AddCategoryCommand}" Grid.Row="2"></Button>-->
 
     </Grid>
 </UserControl>

@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using MyOwnLib.Common;
 using System.Collections.ObjectModel;
+using NLog;
 
 namespace NotitieApplicatie.BusinessAccessLayer
 {
     public class DbRepositoryDisconnected : IDbRepository
     {
+
+
 
         #region Create operations
 
@@ -61,7 +64,9 @@ namespace NotitieApplicatie.BusinessAccessLayer
         {
             using (NotitieDBContext context = new NotitieDBContext())
             {
+                MyLogger.GetInstance().Info("I came from DB");
                 return context.NotitieBoeken.Include(x => x.Notities.Select(p => p.Categorie)).Where(x => x.Id == id).FirstOrDefault();
+               
             }
         }
 
@@ -69,6 +74,7 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+                MyLogger.GetInstance().Info("I came from DB");
                 return new FullObservableCollection<NotitieBoek>(context.NotitieBoeken
                 .Include(x => x.Notities)
                 .Include(x => x.Eigenaar)
@@ -80,7 +86,8 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                    return context.Notities.Include(x => x.Categorie)
+                MyLogger.GetInstance().Info("I came from DB2");
+                return context.Notities.Include(x => x.Categorie)
                                .Where(x => x.Id == id)
                                .FirstOrDefault();
                 }
@@ -90,7 +97,8 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                    return new ObservableCollection<Notitie>( context.Notities
+                MyLogger.GetInstance().Info("I came from DB1");
+                return new ObservableCollection<Notitie>( context.Notities
                     .Include(x => x.NotitieBoek)
                     .Include(x => x.Categorie)
                     .Include(x => x.Eigenaar)
@@ -133,11 +141,17 @@ namespace NotitieApplicatie.BusinessAccessLayer
 
                 if (!context.NotitieBoeken.Local.Contains(notitieBoek))
                 {
-                    context.Eigenaars.Attach(notitieBoek.Eigenaar);
-                    context.NotitieBoeken.Attach(notitieBoek);
+                  
+
+
+                    //context.NotitieBoeken.Include(x => x.Eigenaar);
+                  
+                    //context.NotitieBoeken.Attach(notitieBoek);
+                    context.Entry(notitieBoek.Eigenaar).State = EntityState.Modified;
                     context.Entry(notitieBoek).State = EntityState.Modified;
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
+                
                 return notitieBoek;
 
             }
@@ -188,6 +202,8 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+                if ((categorie = context.Categorieen.FirstOrDefault(x => x.Id == categorie.Id)) != null)
+
                     context.Categorieen.Remove(categorie);
                     context.SaveChanges();
                 }

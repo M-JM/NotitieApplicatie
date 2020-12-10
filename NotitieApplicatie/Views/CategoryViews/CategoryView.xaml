@@ -10,6 +10,45 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Background="{StaticResource BrushTitel}"  Grid.ColumnSpan="3" Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="0" Text="{Binding Titel}" ></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Id:"  Grid.Row="1" Grid.Column="0"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Naam:" Grid.Row="2" Grid.Column="0"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Kleur:" Grid.Row="3" Grid.Column="0"></TextBlock>
+
+
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeCategorie.Id}"  Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBox  Text="{Binding GeselecteerdeCategorie.Naam, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"></TextBox>
+
+
+        <Grid Grid.Row="3" Grid.Column="1" Margin="0 25 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                <ColumnDefinition Width="*" MaxWidth="100" />
+            </Grid.ColumnDefinitions>
+
+            <syncfusion:ColorPickerPalette Color="{Binding GeselecteerdeCategorie.Kleur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  MoreColorOptionVisibility="Hidden" AutomaticColorVisibility="Hidden" IsStandardTabVisible="Hidden" Grid.Column="1"  HorizontalAlignment="Left" Height="39" Margin="119,-10,-251,0" VerticalAlignment="Top" Width="232"/>
+        </Grid>
+
+
+        <Button Content="Bewaar" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding Bewaar}" Grid.Row="6" Grid.Column="0"></Button>
+        <Button Content="Delete" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding Delete}" Grid.Row="6" Grid.Column="1"></Button>
+     
+
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
@@ -29,7 +68,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"></TextBlock>
             <TextBlock Text="Naam:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
-           
+
 
 
             <TextBlock Text="{Binding GeselecteerdeCategory.Naam}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
@@ -42,12 +81,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Kleur" />
-                <syncfusion:ColorPickerPalette Color="{Binding GeselecteerdeCategory.Kleur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  MoreColorOptionVisibility="Hidden" AutomaticColorVisibility="Hidden" IsStandardTabVisible="Hidden" Grid.Column="1"  HorizontalAlignment="Left" Height="39" Margin="50,2,-181,0" VerticalAlignment="Top" Width="232"/>
+                <syncfusion:ColorPickerPalette Color="{Binding GeselecteerdeCategory.Kleur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  MoreColorOptionVisibility="Hidden" AutomaticColorVisibility="Hidden" IsStandardTabVisible="Hidden" Grid.Column="1"  HorizontalAlignment="Left" Height="39" Margin="119,-10,-251,0" VerticalAlignment="Top" Width="232"/>
             </Grid>
 
-            <Button Content="Bewaar" Command="{Binding BewaarCommand}" Grid.Row="4" Grid.Column="0"></Button>
-            <Button Content="Delete" Command="{Binding DeleteCommand}" Grid.Row="4" Grid.Column="1"></Button>
-            <Button Content="Edit" Command="{Binding EditCommand}" Grid.Row="4" Grid.Column="2"></Button>
-        </Grid>
+            <Button Content="Bewaar" Command="{Binding BewaarCommand}" Grid.Row="4" Grid.Column="0" Margin="0,51,0,-46"></Button>
+            <Button Content="Delete" Command="{Binding DeleteCommand}" Grid.Row="4" Grid.Column="1" Margin="102,51,88,-46"></Button>
+            <Button Content="Edit" Command="{Binding EditCommand}" Grid.Row="4" Grid.Column="2" Margin="41,51,140,-46"></Button>
+        </Grid>-->
     </Grid>
 </UserControl>

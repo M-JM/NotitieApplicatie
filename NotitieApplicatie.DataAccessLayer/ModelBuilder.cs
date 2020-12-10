@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NotitieApplicatie.DataAccessLayer
 {
-    internal class ModelBuilder :DropCreateDatabaseAlways <NotitieDBContext>
+    internal class ModelBuilder :DropCreateDatabaseIfModelChanges<NotitieDBContext>
         
     {
         protected override void Seed(NotitieDBContext context)
@@ -40,7 +40,9 @@ namespace NotitieApplicatie.DataAccessLayer
             new NotitieBoek("Jaar 1 ","Dit is de eerste notitieboek", eigenaars[0]),
             new NotitieBoek("Jaar 2 ","Dit is de tweede notitieboek", eigenaars[0]),
             };
-            
+
+            context.Notities.Add(new Notitie("eerste les", "Dit is een eerste notie van Web & Mobile waar wij ons eigen PHP hebben ontwikkeld. Super tof.", DateTime.UtcNow, DateTime.UtcNow, categorieen[1], eigenaars[0], notitieboeken[1]));
+            context.Notities.Add(new Notitie("eerste les", "Dit is een eerste notie van Engels Dev", DateTime.UtcNow, DateTime.UtcNow, categorieen[2], eigenaars[0], notitieboeken[1]));
             context.Notities.Add(new Notitie("eerste les", "Dit is een eerste notie van Application Dev", DateTime.UtcNow, DateTime.UtcNow, categorieen[0], eigenaars[0],notitieboeken[1]));
             context.Notities.Add(new Notitie("eerste les", "Dit is een eerste notie van Web & Mobile", DateTime.UtcNow, DateTime.UtcNow, categorieen[1], eigenaars[0], notitieboeken[1]));
             context.Notities.Add(new Notitie("eerste les", "Dit is een eerste notie van Engels Dev", DateTime.UtcNow, DateTime.UtcNow, categorieen[2], eigenaars[0], notitieboeken[1]));

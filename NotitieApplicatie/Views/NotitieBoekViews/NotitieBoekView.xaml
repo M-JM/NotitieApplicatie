@@ -6,7 +6,46 @@
              xmlns:local="clr-namespace:NotitieApplicatie.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Background="{StaticResource BrushTitel}"  Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Titel}" ></TextBlock>
+
+        <TextBlock Style="{StaticResource TextBlocks}" Text="Id:" Grid.Row="1" Grid.Column="0"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="Naam:" Grid.Row="2" Grid.Column="0"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="Beschrijving:" Grid.Row="3" Grid.Column="0"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="Eigenaar:" Grid.Row="4" Grid.Column="0"></TextBlock>
+
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.Id}" Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.Beschrijving, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Grid.Row="4" Grid.Column="1" Text="{Binding GeselecteerdeNotitieBoek.Eigenaar}"></TextBlock>
+
+        <Button Content="Bewaar" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding BewaarCommand}" Grid.Row="6" Grid.Column="0"></Button>
+        <Button Content="Delete" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding DeleteCommand}" Grid.Row="6" Grid.Column="1"></Button>
+        <Button Content="Edit" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding EditCommand}" Grid.Row="6" Grid.Column="2"></Button>
+    </Grid>
+    
+    
+    
+    
+    
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -43,5 +82,5 @@
             <Button Content="Delete" Command="{Binding DeleteCommand}" Grid.Row="4" Grid.Column="1"></Button>
             <Button Content="Edit" Command="{Binding EditCommand}" Grid.Row="4" Grid.Column="2"></Button>
         </Grid>
-    </Grid>
+    </Grid>-->
 </UserControl>

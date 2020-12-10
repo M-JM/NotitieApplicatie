@@ -14,11 +14,16 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
         <ContentControl Content="{Binding NotitieBoekLijst}" Grid.Column="0"></ContentControl>
         <ContentControl Content="{Binding NotitieBoek}" Grid.Column="1"></ContentControl>
-        <ContentControl Content="{Binding NotitieLijst}" Grid.Column="2"></ContentControl>
+        <ContentControl Content="{Binding NotitieLijst}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
 
 
 

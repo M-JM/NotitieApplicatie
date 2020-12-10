@@ -25,7 +25,24 @@ namespace NotitieApplicatie.DataAccessLayer
         public NotitieDBContext()
             :base("MijnNotitieApplicatie")
         {
-            Database.SetInitializer<NotitieDBContext>(new ModelBuilder());
+           
+
+        }
+
+        public NotitieDBContext(Boolean restart) : base("MijnNotitieApplicatie")
+        {
+
+            switch (restart)
+            {
+                case true:
+                    Database.SetInitializer<NotitieDBContext>(new ModelBuilderRestart());
+                    break;
+                case false:
+                    Database.SetInitializer<NotitieDBContext>(new ModelBuilder());
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion

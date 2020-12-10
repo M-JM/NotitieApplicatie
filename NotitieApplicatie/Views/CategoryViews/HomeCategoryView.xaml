@@ -11,6 +11,11 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
         <ContentControl Content="{Binding CategorieenLijst}" Grid.Column="0"></ContentControl>
         <ContentControl Content="{Binding Categorie}" Grid.Column="1"></ContentControl>
     </Grid>

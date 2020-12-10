@@ -1,21 +1,18 @@
-﻿using NotitieApplicatie.DataAccessLayer;
-using NotitieApplicatie.Mediator;
+﻿using MyOwnLib.Common;
 using NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels;
 using NotitieApplicatie.Viewmodels.NotitieViewmodels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace NotitieApplicatie.Viewmodels
 {
     public class HomeViewModel: BaseViewModel
     {
 
+
+
         #region Props & Variables
+
 
         private readonly NotitieApplicatieMainViewmodel _vm;
 
@@ -56,6 +53,7 @@ namespace NotitieApplicatie.Viewmodels
         #region Constructor
         public HomeViewModel(NotitieApplicatieMainViewmodel vm)
         {
+            MyLogger.GetInstance().Info("I came from HomeViewModel");
 
             _vm = vm;
             NotitieBoekLijst = new NotitieBoekLijstViewModel(_vm);

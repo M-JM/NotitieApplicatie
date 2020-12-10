@@ -1,27 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NotitieApplicatie.DataAccessLayer;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace NotitieApplicatie.Views
 {
-    /// <summary>
-    /// Interaction logic for NotitieAppliciatieMainView.xaml
-    /// </summary>
+
     public partial class NotitieAppliciatieMainView : Window
     {
+     
         public NotitieAppliciatieMainView()
         {
+        
+
             InitializeComponent();
+
+            /// <summary>
+            /// Dit geeft een MessageBox weer aan de gebruiker voor dat hij binnen de applicatie scherm geraak.
+            /// Hier geeft hij een keuze door of hij de databank wilt laten heropstarten of niet
+            /// Deze result wordt dan doorgeven in de constructor van onze DbContext class die een overload constructor heeft die een boleean als parameter vergt.
+            /// Daar wordt dan bepaald of wij de DB opnieuw maken of gewoon de huidige gemaakte gebruiken.
+            /// 
+            /// </summary>
+
+            //TODO: Zoek een manier om dit MVVM te maken ?
+                       
+            MessageBoxResult result = System.Windows.MessageBox.Show("Do you want to restart the DataBase ?\nThis action will erase all non-seed records.", "Important Question", MessageBoxButton.YesNo);
+
+            if(result.ToString() == "No")
+            {
+              new NotitieDBContext(false);
+            }
+            else
+            {
+              new NotitieDBContext(true);
+            }
+           
         }
     }
 }

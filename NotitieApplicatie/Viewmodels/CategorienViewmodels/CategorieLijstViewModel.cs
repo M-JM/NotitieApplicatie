@@ -12,7 +12,7 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
     {
         private readonly NotitieApplicatieMainViewmodel _vm;
         private FullObservableCollection<Categorie> _categorieLijst;
-        private Categorie _geselecteerdeCategory;
+        private Categorie _geselecteerdeCategorie;
         private RelayCommand _addCategoryCommand;
         private Categorie _verwijderdeCategorie;
 
@@ -26,7 +26,7 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
             }
         }
 
-        public Categorie VerwijderdeNotitieboek
+        public Categorie VerwijderdeCategorie
         {
             get { return _verwijderdeCategorie; }
             set
@@ -39,12 +39,12 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
 
    
 
-        public Categorie GeselecteerdeCategory
+        public Categorie GeselecteerdeCategorie
         {
-            get { return _geselecteerdeCategory; }
+            get { return _geselecteerdeCategorie; }
             set
             {
-                SetProperty(ref _geselecteerdeCategory, value);
+                SetProperty(ref _geselecteerdeCategorie, value);
             }
         }
 
@@ -63,7 +63,7 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
         public CategorieLijstViewModel(NotitieApplicatieMainViewmodel vm)
         {
             _vm = vm;
-            Titel = "mijn Categorieen";
+            Titel = "Mijn categorieen";
             CategorieLijst = DbRepository.Categorieenlijst();
             AddCategoryCommand = new RelayCommand(ShowInfoView);
         }

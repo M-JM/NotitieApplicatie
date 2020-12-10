@@ -40,6 +40,7 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
 
         public HomeCategoryViewModel(NotitieApplicatieMainViewmodel vm)
         {
+            
             _vm = vm;
             Categorie = new CategorieViewModel();
             CategorieenLijst = new CategorieLijstViewModel(_vm);
@@ -52,8 +53,8 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
 
             switch (e.PropertyName)
             {
-                case "GeselecteerdeCategory":
-                    (Categorie as CategorieViewModel).GeselecteerdeCategory = (CategorieenLijst as CategorieLijstViewModel).GeselecteerdeCategory;
+                case "GeselecteerdeCategorie":
+                    (Categorie as CategorieViewModel).GeselecteerdeCategorie = (CategorieenLijst as CategorieLijstViewModel).GeselecteerdeCategorie;
 
 
                     break;

@@ -2,15 +2,24 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     >
 
-    <Color x:Key="ColorPrimary">#0033cc</Color>
-    <Color x:Key="ColorSecundary">#3366ff</Color>
-    <Color x:Key="ColorSecundaryOnHover">#99b3ff</Color>
-    
+    <Color x:Key="ColorPrimary">#482980</Color>
+    <Color x:Key="ColorSecundary">#522e92</Color>
+    <Color x:Key="ColorSecundaryOnHover">#9575cd</Color>
+    <Color x:Key="ColorTitel">#764ebe</Color>
 
     <SolidColorBrush x:Key="BrushPrimary" Color="{StaticResource ColorPrimary}"></SolidColorBrush>
     <SolidColorBrush x:Key="BrushSecundary" Color="{StaticResource ColorSecundary}"></SolidColorBrush>
     <SolidColorBrush x:Key="BrushSecundaryOnHover" Color="{StaticResource ColorSecundaryOnHover}"></SolidColorBrush>
+    <SolidColorBrush x:Key="BrushTitel" Color="{StaticResource ColorTitel}"></SolidColorBrush>
 
+    <Style x:Key="TextBlocks" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Padding" Value="5,5,5,5"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+    
+    
     <Style x:Key="Navigation-buttons" TargetType="RadioButton">
 
         <Setter Property="Foreground" Value="White"></Setter>
@@ -59,5 +68,6 @@
         
     </Style>
 
+    
 
 </ResourceDictionary>

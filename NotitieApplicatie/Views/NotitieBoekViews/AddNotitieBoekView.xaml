@@ -8,12 +8,62 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
 
-    <Grid Margin="20,27,50,25"
-        MaxWidth="1000"
-        Grid.IsSharedSizeScope="True">
+    <Grid>
 
-        <Grid.Resources>
-            <Style TargetType="TextBox">
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Background="{StaticResource BrushTitel}" Grid.ColumnSpan="2" Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="0" Text="{Binding Titel}" ></TextBlock>
+
+        <TextBlock Style="{StaticResource TextBlocks}"  Grid.Row="1" Grid.Column="0"  Text="Naam"/>
+        <TextBox Margin="0,0,400,0" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Text="{Binding NotitieBoek.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Beschrijving" Grid.Row="2" Grid.Column="0"/>
+        <TextBox Margin="0,0,400,0" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Text="{Binding NotitieBoek.Beschrijving ,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Eigenaar" Grid.Row="3" Grid.Column="0"/>
+        <ComboBox Padding="0,0,0,0" Margin="0,0,400,0" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Eigenaars,ValidatesOnDataErrors=True}" DisplayMemberPath="Naam"  SelectedItem="{Binding NotitieBoek.Eigenaar, UpdateSourceTrigger=PropertyChanged}">
+        </ComboBox>
+
+        <Button Content="Bewaar" VerticalAlignment="Center"  Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding MaakCommand}" Grid.Row="4" Grid.Column="1"></Button>
+        <Button Content="Cancel"   Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding CancelCommand}" Grid.Row="4" Grid.Column="0"></Button>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!--<Grid.Resources>
+            --><!--<Style TargetType="TextBox">
                 <Setter Property="Padding" Value="2 1" />
                 <Setter Property="BorderBrush" Value="LightGray" />
                 <Setter Property="Validation.ErrorTemplate">
@@ -48,7 +98,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>--><!--
 
         
 
@@ -113,7 +163,7 @@
             <Button Content="Cancel" Command="{Binding CancelCommand}" Grid.Row="3" Grid.Column="0"></Button>
         </Grid>
        
-        <!--<Grid.RowDefinitions>
+        --><!--<Grid.RowDefinitions>
                 <RowDefinition Height="43*"/>
                 <RowDefinition Height="55*"/>
                 <RowDefinition Height="50*"/>

@@ -26,6 +26,13 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             {
                 SetProperty(ref _geselecteerdeNotitieBoek, value);
                 GeselecteerdeNotitieBoek.PropertyChanged += GeselecteerdeNotitieBoek_PropertyChanged;
+
+                /// Noodzakelijk om de huidige eigenaar van mijn Gelesecteerde notitieboek weer te geven als de selecteditem van de ComboBox.
+                /// ComboBox sourceItemList is een observable -> de selectedItem moet uit die SourceItemlist komen (Indexvalues)
+                /// Dus hier moet ik de waarde van eigenaar in mijn notitieboek gaan instellen met dezelfde waarde uit lijst van Eigenaars
+                /// Combobox kent alleen waardes uit de lijst waarmee hij gepopuleerd wordt !!!
+                /// Verder opzoeken of hier geen beter manier voor besta ??)
+
               if(value != null)
                 {
                     foreach (Eigenaar item in Eigenaars)

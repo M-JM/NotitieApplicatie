@@ -11,7 +11,6 @@
         MaxWidth="1000"
         Grid.IsSharedSizeScope="True">
 
-    
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -33,18 +32,18 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Naam" />
-            <TextBox Grid.Column="1" Margin="20 0 0 0"
-                Text="{Binding Category.Naam, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            <TextBox Grid.Column="1" Margin="52,-10,-92,0"
+                Text="{Binding Category.Naam, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True}" />
         </Grid>
-      
+
         <Grid Grid.Row="3" Margin="0 25 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                <ColumnDefinition Width="*" MaxWidth="100" />
+                <ColumnDefinition Width="Auto" MaxWidth="100" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Kleur" />
-            <syncfusion:ColorPickerPalette Color="{Binding Category.Kleur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  MoreColorOptionVisibility="Hidden" AutomaticColorVisibility="Hidden" IsStandardTabVisible="Hidden" Grid.Column="1"  HorizontalAlignment="Left" Height="39" Margin="50,2,-181,0" VerticalAlignment="Top" Width="232"/>
+            <TextBlock Grid.Column="0" Text="Kleur" Grid.ColumnSpan="2" Margin="0,0,72,0" />
+            <syncfusion:ColorPickerPalette Color="{Binding Category.Kleur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutomaticColorVisibility="Hidden" IsStandardTabVisible="Hidden" Grid.Column="1" Height="35" Margin="51,0,-145,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.29"/>
         </Grid>
 
         <Grid Grid.Row="4" Margin="0 25 0 0">
@@ -53,38 +52,11 @@
                 <ColumnDefinition Width="*" MaxWidth="100" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="Bewaar" Command="{Binding MaakCommand}" Grid.Row="3" Grid.Column="1"/>
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Grid.Row="3" Grid.Column="0"/>
+            <Button Content="Bewaar" Command="{Binding MaakCommand}" Grid.Column="1" Margin="90,0,-100,-24"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,41,-24"/>
         </Grid>
 
-        <!--<Grid.RowDefinitions>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="55*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="13*"/>
-                
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="Naam"  HorizontalAlignment="Right" />
-            <StackPanel Grid.Column="1">
-                <TextBox  Text="{Binding NotitieBoekA.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" ToolTip="{Binding ErrorContent}" />
-            </StackPanel>
-
-            <TextBlock Text="Beschrijving" Grid.Row="1"/>
-            <TextBox Text="{Binding NotitieBoekA.Beschrijving ,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding NotitieBoekA.ErrorCollection[Beschrijving]}"/>
-
-            <TextBlock Text="Eigenaar" Grid.Row="2"/>
-            <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Eigenaars ,ValidatesOnDataErrors=True}" DisplayMemberPath="Naam"  SelectedItem="{Binding NotitieBoekA.Eigenaar, UpdateSourceTrigger=PropertyChanged}">
-
-            </ComboBox>-->
-
-        <!--<Button Content="Bewaar" Command="{Binding MaakCommand}" Grid.Row="3" Grid.Column="1"></Button>
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Grid.Row="3" Grid.Column="0"></Button>-->
+      
     </Grid>
 
 </UserControl>
