@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NotitieApplicatie.Viewmodels
+namespace NotitieApplicatie.DataAccessLayer.Exceptions
 {
-   public class RegisterViewModel : BaseViewModel
+    public class NotitieBoekExpections : Exception
     {
 
     }

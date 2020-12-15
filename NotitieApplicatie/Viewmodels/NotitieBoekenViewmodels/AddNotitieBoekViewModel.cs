@@ -106,15 +106,22 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 
         private void BewaarNotitieBoek(Object parameter = null)
         {
+            try
+            {
+                
+                DbRepository.AddNotitieBoek(NotitieBoek);
+                MagBewaren = false;
+                _vm.SelectedView = new HomeViewModel(_vm);
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
            
 
-            DbRepository.AddNotitieBoek(NotitieBoek);
-
-            // Command button naar false zodat hij weer disabled is.
-
-            MagBewaren = false;
-            _vm.SelectedView = new HomeViewModel(_vm);
+         
 
      
 

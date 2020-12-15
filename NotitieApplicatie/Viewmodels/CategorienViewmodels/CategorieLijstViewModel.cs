@@ -22,7 +22,6 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
             set
             {
                 SetProperty(ref _categorieLijst, value);
-
             }
         }
 
@@ -33,11 +32,8 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
             {
                 SetProperty(ref _verwijderdeCategorie, value);
                 RemoveCategory(value);
-
             }
-        }
-
-   
+        } 
 
         public Categorie GeselecteerdeCategorie
         {
@@ -48,7 +44,6 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
             }
         }
 
-
         public RelayCommand AddCategoryCommand
         {
             get { return _addCategoryCommand; }
@@ -58,23 +53,20 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
             }
         }
 
-
-
         public CategorieLijstViewModel(NotitieApplicatieMainViewmodel vm)
         {
             _vm = vm;
             Titel = "Mijn categorieen";
             CategorieLijst = DbRepository.Categorieenlijst();
-            AddCategoryCommand = new RelayCommand(ShowInfoView);
+            AddCategoryCommand = new RelayCommand(RouteToAdd);
         }
-
 
         private void RemoveCategory(Categorie value)
         {
             throw new NotImplementedException();
         }
 
-        private void ShowInfoView(Object parameter = null)
+        private void RouteToAdd(Object parameter = null)
         {
             _vm.SelectedView = new AddCategoryViewModel(_vm);
         }

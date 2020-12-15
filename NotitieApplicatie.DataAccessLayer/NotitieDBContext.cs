@@ -18,6 +18,8 @@ namespace NotitieApplicatie.DataAccessLayer
 
         public DbSet<Eigenaar> Eigenaars { get; set; }
 
+        
+
         #endregion
 
         #region Constructor
@@ -25,7 +27,7 @@ namespace NotitieApplicatie.DataAccessLayer
         public NotitieDBContext()
             :base("MijnNotitieApplicatie")
         {
-           
+     
 
         }
 

@@ -35,12 +35,14 @@
       <HintPath>..\packages\NLog.4.7.6\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FullObservableCollection.cs" />
+    <Compile Include="HexaDecimalToColorBrushConverter.cs" />
     <Compile Include="IMyLogger.cs" />
     <Compile Include="MyLogger.cs" />
     <Compile Include="ObservableObject.cs" />

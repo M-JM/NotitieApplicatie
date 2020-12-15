@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
@@ -16,13 +17,9 @@ namespace NotitieApplicatie.DataAccessLayer
         private readonly Dictionary<string, List<string>> _propertyErrors = new Dictionary<string, List<string>>();
         private string _naam;
         private string _beschrijving;
-        
+        public int NotitieBoekId { get; set; }
 
-        public int Id { get; set; }
-
-        
-       
-         public string Naam
+        public string Naam
         {
             get { return _naam; }
             set
@@ -76,6 +73,9 @@ namespace NotitieApplicatie.DataAccessLayer
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
+
+        [ForeignKey("Eigenaar")]
+        public int? EigenaarId { get; set; }
         public Eigenaar Eigenaar
         {
             get { return _eigenaar; }
@@ -91,7 +91,7 @@ namespace NotitieApplicatie.DataAccessLayer
               
             }
         }
-
+   
 
         public List<Notitie> Notities { get; set; }
 
@@ -117,7 +117,7 @@ namespace NotitieApplicatie.DataAccessLayer
 
         internal NotitieBoek(int id , string naam, string beschrijving, Eigenaar eigenaar)
         {
-            Id = id;
+            NotitieBoekId = id;
             Naam = naam;
             Beschrijving = beschrijving;
             Eigenaar = eigenaar;
@@ -129,7 +129,7 @@ namespace NotitieApplicatie.DataAccessLayer
 
         public override string ToString()
         {
-            return $"{Id} - {Naam} ";
+            return $"{NotitieBoekId} - {Naam} ";
         }
 
       

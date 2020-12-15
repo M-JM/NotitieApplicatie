@@ -28,7 +28,11 @@ namespace NotitieApplicatie.Views
 
             if(result.ToString() == "No")
             {
-              new NotitieDBContext(false);
+            new NotitieDBContext(false);
+               
+
+
+            
             }
             else
             {

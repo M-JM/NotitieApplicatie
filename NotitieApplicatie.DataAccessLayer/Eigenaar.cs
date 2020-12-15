@@ -12,10 +12,9 @@ namespace NotitieApplicatie.DataAccessLayer
     {
 
         #region Properties & Fields
-        public int Id { get; set; }
-
         
- 
+        public int EigenaarId { get; set; }
+               
         private string _naam;
 
         public string Naam
@@ -38,7 +37,6 @@ namespace NotitieApplicatie.DataAccessLayer
             }
         }
 
-
         #endregion
 
         #region Constructors
@@ -57,10 +55,9 @@ namespace NotitieApplicatie.DataAccessLayer
 
         internal Eigenaar(int id, string naam, string email)
         {
-            Id = id;
+            EigenaarId = id;
             Naam = naam;
             Email = email;
-
         }
 
         #endregion
@@ -71,10 +68,7 @@ namespace NotitieApplicatie.DataAccessLayer
             return $"{Naam}";
         }
 
-
         #endregion
-
-
     }
 
 

@@ -1,0 +1,58 @@
+﻿<UserControl xmlns:syncfusion="http://schemas.syncfusion.com/wpf"  x:Class="NotitieApplicatie.Views.NotitieViews.EditNotitieView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NotitieApplicatie.Views.NotitieViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Background="{StaticResource BrushTitel}" Grid.ColumnSpan="2" Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="0" Text="{Binding Titel}" ></TextBlock>
+
+        <TextBlock Style="{StaticResource TextBlocks}"  Grid.Row="1" Grid.Column="0"  Text="Titel"/>
+        <TextBox Margin="0,0,400,0" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Text="{Binding GeselecteerdeNotitie.Titel, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Inhoud" Grid.Row="2" Grid.Column="0"/>
+        <TextBox Margin="0,0,400,0" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Text="{Binding GeselecteerdeNotitie.Inhoud ,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBlock Style="{StaticResource TextBlocks}"  Text="Categorie" Grid.Row="3" Grid.Column="0"/>
+        <ComboBox Padding="0,0,0,0" Margin="0,0,400,0" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding CategorieLijst,ValidatesOnDataErrors=True}" DisplayMemberPath="Naam"  SelectedItem="{Binding GeselecteerdeNotitieBoek.Eigenaar, UpdateSourceTrigger=PropertyChanged}">
+        </ComboBox>
+
+
+        <syncfusion:SfRating ItemsCount="5" Precision="Half" IsReadOnly="False" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" Value="{Binding GeselecteerdeNotitie.Rating}">
+            <syncfusion:SfRating.ItemContainerStyle>
+                <Style TargetType="syncfusion:SfRatingItem">
+                    <Setter Property="RatedFill" Value="Yellow">
+                    </Setter>
+                    <Setter Property="Height" Value="16"></Setter>
+                </Style>
+            </syncfusion:SfRating.ItemContainerStyle>
+
+        </syncfusion:SfRating>
+
+        <Button Content="Bewaar" Margin="0,0,400,0" VerticalAlignment="Center"  Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding BewaarCommand}" Grid.Row="4" Grid.Column="1"></Button>
+        <Button Content="Cancel"   Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding CancelCommand}" Grid.Row="4" Grid.Column="0"></Button>
+
+
+    </Grid>
+
+
+</UserControl>

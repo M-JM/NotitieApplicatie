@@ -13,7 +13,7 @@ namespace NotitieApplicatie.DataAccessLayer
     {
         #region Properties & Fields
 
-        public int Id { get; set; }
+        public int CategorieId { get; set; }
 
         private string _naam;
         public string Naam
@@ -78,7 +78,7 @@ namespace NotitieApplicatie.DataAccessLayer
 
         internal Categorie(int id,string naam,string kleur)
         {
-            Id = id;
+            CategorieId = id;
             Naam = naam;
             Kleur = kleur;
         }

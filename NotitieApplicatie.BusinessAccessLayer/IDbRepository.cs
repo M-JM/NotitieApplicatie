@@ -20,9 +20,9 @@ namespace NotitieApplicatie.BusinessAccessLayer
         Notitie UpdateNotitie(Notitie notitie);
         NotitieBoek UpdateNotitieBoek(NotitieBoek notitieBoek);
         Categorie UpdateCategorie(Categorie categorie);
-        void RemoveNotitie(Notitie notitie);
-        void RemoveNotitieBoek(NotitieBoek notitieBoek);
-        void RemoveCategorie(Categorie categorie);
+        Boolean RemoveNotitie(Notitie notitie);
+        Boolean RemoveNotitieBoek(NotitieBoek notitieBoek);
+        Boolean RemoveCategorie(Categorie categorie);
         FullObservableCollection<Eigenaar> Eigenaarslijst();
         FullObservableCollection<NotitieBoek> Notitieboeklijst();
         ObservableCollection<Notitie> Notitielijst();

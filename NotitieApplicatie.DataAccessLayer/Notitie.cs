@@ -87,12 +87,30 @@ namespace NotitieApplicatie.DataAccessLayer
             }
         }
 
+        private double _rating;
+
+        public double Rating
+        {
+            get { return _rating; }
+            set
+            {
+                SetProperty(ref _rating, value);
+            }
+        }
+
 
 
         public Categorie Categorie { get; set; }
 
+        [ForeignKey("Categorie")]
+        public int? CategorieId { get; set; }
+
+        [ForeignKey("Eigenaar")]
+        public int? EigenaarId { get; set; }
         public Eigenaar Eigenaar { get; set; }
 
+        [ForeignKey("NotitieBoek")]
+        public int? NotitieBoekId { get; set; }
         public NotitieBoek NotitieBoek { get; set; }
 
 
@@ -110,19 +128,20 @@ namespace NotitieApplicatie.DataAccessLayer
 
         }
 
-        public Notitie(string titel, string inhoud, DateTime aangemaaktOp, DateTime gewijzigdOp, Categorie categorie, Eigenaar eigenaar, NotitieBoek notitieBoek)
-            : this(0, titel, inhoud,aangemaaktOp,gewijzigdOp, categorie, eigenaar,notitieBoek)
+        public Notitie(string titel, string inhoud, DateTime aangemaaktOp, DateTime gewijzigdOp, double rating, Categorie categorie, Eigenaar eigenaar, NotitieBoek notitieBoek)
+            : this(0, titel, inhoud,aangemaaktOp,gewijzigdOp,rating, categorie, eigenaar,notitieBoek)
         {
 
         }
 
-        internal Notitie(int id, string titel, string inhoud, DateTime aangemaaktOp, DateTime gewijzigdOp, Categorie categorie, Eigenaar eigenaar, NotitieBoek notitieBoek)
+        internal Notitie(int id, string titel, string inhoud, DateTime aangemaaktOp, DateTime gewijzigdOp, double rating, Categorie categorie, Eigenaar eigenaar, NotitieBoek notitieBoek)
         {
             Id = id;
             Titel = titel;
             Inhoud = inhoud;
             AangemaaktOp = aangemaaktOp;
             GewijzigdOp = gewijzigdOp;
+            Rating = rating;
             Categorie = categorie;
             Eigenaar = eigenaar;
             NotitieBoek = notitieBoek;

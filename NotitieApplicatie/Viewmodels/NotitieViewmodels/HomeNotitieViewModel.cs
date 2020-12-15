@@ -1,6 +1,7 @@
 ﻿using NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,14 +22,14 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
             }
         }
 
-        private BaseViewModel _notitieLijst;
+        private BaseViewModel _allenotitieLijst;
 
-        public BaseViewModel NotitieLijst
+        public BaseViewModel AlleNotitieLijst
         {
-            get { return _notitieLijst; }
+            get { return _allenotitieLijst; }
             set
             {
-                SetProperty(ref _notitieLijst, value);
+                SetProperty(ref _allenotitieLijst, value);
             }
         }
 
@@ -48,10 +49,37 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
         {
             _vm = vm;
             NotitieBoekLijst = new NotitieBoekLijstViewModel(_vm);
-            NotitieLijst = new NotitieLijstViewModel();
-            Notitie = new NotitieViewModel();
+            AlleNotitieLijst = new AlleNotitiesViewModel();
+            Notitie = new NotitieViewModel(_vm);
+            AlleNotitieLijst.PropertyChanged += AlleNotitieLijst_PropertyChanged;
+            Notitie.PropertyChanged += Notitie_PropertyChanged;
 
         }
 
+        private void Notitie_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "VerwijderdeNotitie":
+                    (AlleNotitieLijst as AlleNotitiesViewModel).VerwijderdeNotitie = (Notitie as NotitieViewModel).VerwijderdeNotitie;
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void AlleNotitieLijst_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "GeselecteerdeNotitie":
+                    (Notitie as NotitieViewModel).GeselecteerdeNotitie = (AlleNotitieLijst as AlleNotitiesViewModel).GeselecteerdeNotitie;
+                    break;
+                default:
+                    break;
+
+            }
+        }
     }
 }

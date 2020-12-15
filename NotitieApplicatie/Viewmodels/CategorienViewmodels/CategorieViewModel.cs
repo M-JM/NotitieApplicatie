@@ -1,10 +1,14 @@
 ﻿using MyOwnLib.Common;
 using NotitieApplicatie.DataAccessLayer;
+using NotitieApplicatie.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using static NotitieApplicatie.Exceptions.CategorieExpections;
 
 namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
 {
@@ -89,7 +93,7 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
                 if(value != null)
                 {
                     GeselecteerdeCategorie.PropertyChanged += GeselecteerdeCategorie_PropertyChanged;
-                   
+                    CategorieBewaren = false;
                     CategorieVerwijderen = true;
                 }
                 
@@ -109,14 +113,19 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
         {
             try
             {
-                DbRepository.RemoveCategorie(GeselecteerdeCategorie);
+              Boolean test =  DbRepository.RemoveCategorie(GeselecteerdeCategorie);
+                if (test == false)
+                {
+                    throw new CategorieDbException();
+                }
 
             }
-            catch (Exception)
+            catch (CategorieDbException ex)
             {
-
-                throw;
+                MessageBox.Show($"{ex.Message}");
+             
             }
+
         }
 
         private void BewaarCategorie(object obj)

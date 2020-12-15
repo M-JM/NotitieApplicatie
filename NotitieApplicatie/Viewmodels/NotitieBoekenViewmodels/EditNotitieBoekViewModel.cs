@@ -37,7 +37,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
                 {
                     foreach (Eigenaar item in Eigenaars)
                     {
-                        if(item.Id == value.Eigenaar.Id)
+                        if(item.EigenaarId == value.Eigenaar.EigenaarId)
                         {
                             GeselecteerdeNotitieBoek.Eigenaar = item;
                         }
@@ -95,7 +95,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             Eigenaars = DbRepository.Eigenaarslijst();
             GeselecteerdeNotitieBoek = notitieBoek;
             _vm = vm;
-            Titel = "mijn geselecteerde notitie boek";
+            Titel = "U Editeert Notitieboek met Id " + $"{GeselecteerdeNotitieBoek.NotitieBoekId}";
             BewaarCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBoekBewaren);
             CancelCommand = new RelayCommand(CancelNotitieBoek);
         }

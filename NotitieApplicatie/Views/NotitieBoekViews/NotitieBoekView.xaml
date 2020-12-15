@@ -31,12 +31,12 @@
         <TextBlock Style="{StaticResource TextBlocks}" Text="Beschrijving:" Grid.Row="3" Grid.Column="0"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="Eigenaar:" Grid.Row="4" Grid.Column="0"></TextBlock>
 
-        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.Id}" Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.NotitieBoekId}" Grid.Row="1" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitieBoek.Beschrijving, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Grid.Row="4" Grid.Column="1" Text="{Binding GeselecteerdeNotitieBoek.Eigenaar}"></TextBlock>
 
-        <Button Content="Bewaar" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding BewaarCommand}" Grid.Row="6" Grid.Column="0"></Button>
+        
         <Button Content="Delete" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding DeleteCommand}" Grid.Row="6" Grid.Column="1"></Button>
         <Button Content="Edit" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding EditCommand}" Grid.Row="6" Grid.Column="2"></Button>
     </Grid>

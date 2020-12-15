@@ -15,8 +15,10 @@ namespace NotitieApplicatie.Viewmodels
 
 
         private readonly NotitieApplicatieMainViewmodel _vm;
-
         private BaseViewModel _notitieBoek;
+        private BaseViewModel _notitieBoekLijst;
+        private BaseViewModel _notitieLijst;
+
 
         public BaseViewModel NotitieBoek
         {
@@ -27,8 +29,6 @@ namespace NotitieApplicatie.Viewmodels
             }
         }
 
-        private BaseViewModel _notitieBoekLijst;
-
         public BaseViewModel NotitieBoekLijst
         {
             get { return _notitieBoekLijst; }
@@ -37,8 +37,6 @@ namespace NotitieApplicatie.Viewmodels
                 SetProperty(ref _notitieBoekLijst, value);
             }
         }
-
-        private BaseViewModel _notitieLijst;
 
         public BaseViewModel NotitieLijst
         {

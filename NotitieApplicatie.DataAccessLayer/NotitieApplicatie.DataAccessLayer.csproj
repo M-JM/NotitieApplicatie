@@ -61,6 +61,9 @@
   <ItemGroup>
     <Compile Include="Categorie.cs" />
     <Compile Include="Eigenaar.cs" />
+    <Compile Include="Exceptions\CategorieExpections.cs" />
+    <Compile Include="Exceptions\NotitieBoekExpections.cs" />
+    <Compile Include="Exceptions\NotitieExceptions.cs" />
     <Compile Include="ModelBuilderRestart.cs" />
     <Compile Include="NotitieDBContext.cs" />
     <Compile Include="ModelBuilder.cs" />

@@ -161,8 +161,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         {
             try
             {
-                
-               
+                 
                 DbRepository.RemoveNotitieBoek(GeselecteerdeNotitieBoek);
                 VerwijderdeNotitieboek = GeselecteerdeNotitieBoek;
                 NotitieBoekDeleten = false;

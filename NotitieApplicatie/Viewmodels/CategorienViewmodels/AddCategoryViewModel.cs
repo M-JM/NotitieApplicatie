@@ -34,8 +34,6 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
             }
         }
 
-      
-
         public Categorie Category
         {
             get { return _categorie; }
@@ -44,7 +42,6 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
                 SetProperty(ref _categorie, value);
             }
         }
-
 
         public AddCategoryViewModel(NotitieApplicatieMainViewmodel vm)
         {

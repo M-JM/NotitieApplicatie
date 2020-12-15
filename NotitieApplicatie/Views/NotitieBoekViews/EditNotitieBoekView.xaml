@@ -38,22 +38,6 @@
         <Button Content="Cancel"   Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding CancelCommand}" Grid.Row="4" Grid.Column="0"></Button>
 
 
-        <!--<TextBlock Style="{StaticResource TextBlocks}"  Text="Naam"/>
-        <TextBox  Text="{Binding GeselecteerdeNotitieBoek.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" ToolTip="{Binding GeselecteerdeNotitieBoek.ErrorCollection[Naam]}" Margin="0,0,-497,0" />
-
-
-        <TextBlock Style="{StaticResource TextBlocks}"  Text="Beschrijving" Grid.Row="1"/>
-        <TextBox Text="{Binding GeselecteerdeNotitieBoek.Beschrijving ,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" ToolTip="{Binding GeselecteerdeNotitieBoek.ErrorCollection[Beschrijving]}"/>
-
-        <TextBlock Style="{StaticResource TextBlocks}"  Text="Eigenaar" Grid.Row="2"/>
-        <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Eigenaars,ValidatesOnDataErrors=True}" DisplayMemberPath="Naam"  SelectedItem="{Binding GeselecteerdeNotitieBoek.Eigenaar, UpdateSourceTrigger=PropertyChanged}">
-
-        </ComboBox>
-
-        <Button Content="Bewaar"  Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding BewaarCommand}" Grid.Row="3" Grid.Column="1"></Button>
-
-        <Button Content="Cancel"   Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding CancelCommand}" Grid.Row="3" Grid.Column="0"></Button>-->
-        
     </Grid>
  
 

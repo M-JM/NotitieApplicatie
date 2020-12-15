@@ -79,8 +79,15 @@
             <DataTemplate DataType="{x:Type viewmodelsNot:HomeNotitieViewModel}">
                 <ViewsNotities:HomeNotitieView></ViewsNotities:HomeNotitieView>
             </DataTemplate>
-    
 
+            <DataTemplate DataType="{x:Type viewmodelsNot:AlleNotitiesViewModel}">
+                <ViewsNotities:AllNotitieView></ViewsNotities:AllNotitieView>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodelsNot:EditNotitieViewModel}">
+                <ViewsNotities:EditNotitieView></ViewsNotities:EditNotitieView>
+            </DataTemplate>
+            
 
 
             <DataTemplate DataType="{x:Type viewmodelsCat:AddCategoryViewModel}">

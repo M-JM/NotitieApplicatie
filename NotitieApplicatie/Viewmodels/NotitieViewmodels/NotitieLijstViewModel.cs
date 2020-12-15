@@ -20,7 +20,6 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 				
 				{
 					SetProperty(ref _notities, value);
-				
 				}
 						
 		}
@@ -34,7 +33,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 			{
 				SetProperty(ref _geselecteerdeNotitieBoek, value);
 				if(value != null) { 
-				Notities =  new ObservableCollection<Notitie>(DbRepository.Notitielijst().Where(x => x.NotitieBoek.Id == GeselecteerdeNotitieBoek.Id));
+				Notities =  new ObservableCollection<Notitie>(DbRepository.Notitielijst().Where(x => x.NotitieBoek.NotitieBoekId == GeselecteerdeNotitieBoek.NotitieBoekId));
 				}
 			}
 		}

@@ -56,7 +56,6 @@ namespace NotitieApplicatie.Viewmodels.CategorienViewmodels
                 case "GeselecteerdeCategorie":
                     (Categorie as CategorieViewModel).GeselecteerdeCategorie = (CategorieenLijst as CategorieLijstViewModel).GeselecteerdeCategorie;
 
-
                     break;
 
                 default:

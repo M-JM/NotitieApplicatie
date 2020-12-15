@@ -1,60 +1,94 @@
 ﻿using NotitieApplicatie.DataAccessLayer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
 using MyOwnLib.Common;
 using System.Collections.ObjectModel;
-using NLog;
+using System.Linq;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
+using NotitieApplicatie.DataAccessLayer.Exceptions;
 
 namespace NotitieApplicatie.BusinessAccessLayer
 {
     public class DbRepositoryDisconnected : IDbRepository
     {
 
-
-
-        #region Create operations
+         #region Create operations
 
         public Notitie AddNotitie(Notitie notitie)
         {
-            using (NotitieDBContext context = new NotitieDBContext())
+            try
             {
-                context.Notities.Add(notitie);
-                context.SaveChanges();
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+
+                    context.Notities.Add(notitie);
+                    context.SaveChanges();
+                    return notitie;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException is SqlException)
+                {
+                    MyLogger.GetInstance().Error("SqlException from AddNotitie: " + ex.Message);
+                }
+                else
+                {
+                    MyLogger.GetInstance().Error("Exception from AddNotitie: " + ex.Message);
+                }
+                notitie = null;
                 return notitie;
             }
+          
         }
 
         public NotitieBoek AddNotitieBoek(NotitieBoek notitieBoek)
         {
-            using (NotitieDBContext context = new NotitieDBContext())
+            try
             {
-                context.NotitieBoeken.Add(notitieBoek);
-                
-                // noodzakelijk om EF te laten weten dat die eigenaar die meegeven wordt hier niet weer moet ingevoegd worden als nieuwe record
-                // Dit komt omdate de context alleen notitieboek trackt en dus niets weet van Eigenaar context (dus kan niet weten of hij reeds besta)
-                // door de eigenaar "vast te hangen" aan de notitieboek context zal deze niet als een nieuwe record nserten bij SaveChanges.
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+                    context.NotitieBoeken.Add(notitieBoek);
 
-                //https://stackoverflow.com/questions/7884887/prevent-entity-framework-to-insert-values-for-navigational-properties
-                //https://entityframework.net/knowledge-base/48816929/prevent-adding-new-record-on-related-table-entity-in-entity-framework
+                    // noodzakelijk om EF te laten weten dat die eigenaar die meegeven wordt hier niet weer moet ingevoegd worden als nieuwe record
+                    // Dit komt omdate de context alleen notitieboek trackt en dus niets weet van Eigenaar context (dus kan niet weten of hij reeds besta)
+                    // door de eigenaar "vast te hangen" aan de notitieboek context zal deze niet als een nieuwe record nserten bij SaveChanges.
 
-                context.Eigenaars.Attach(notitieBoek.Eigenaar);
-                context.SaveChanges();
-                return notitieBoek;
+                    //https://stackoverflow.com/questions/7884887/prevent-entity-framework-to-insert-values-for-navigational-properties
+                    //https://entityframework.net/knowledge-base/48816929/prevent-adding-new-record-on-related-table-entity-in-entity-framework
+
+                    context.Eigenaars.Attach(notitieBoek.Eigenaar);
+                    context.SaveChanges();
+                    return notitieBoek;
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
         }
 
         public Categorie AddCategorie(Categorie categorie)
         {
-            using (NotitieDBContext context = new NotitieDBContext())
+            try
             {
-                context.Categorieen.Add(categorie);
-                context.SaveChanges();
-                return categorie;
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+                    context.Categorieen.Add(categorie);
+                    context.SaveChanges();
+                    return categorie;
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+       
         }
         #endregion
 
@@ -62,63 +96,118 @@ namespace NotitieApplicatie.BusinessAccessLayer
 
         public NotitieBoek NotitieboekById(int id)
         {
-            using (NotitieDBContext context = new NotitieDBContext())
+            try
             {
-                MyLogger.GetInstance().Info("I came from DB");
-                return context.NotitieBoeken.Include(x => x.Notities.Select(p => p.Categorie)).Where(x => x.Id == id).FirstOrDefault();
-               
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+                    MyLogger.GetInstance().Info("I came from DB");
+                    return context.NotitieBoeken.Include(x => x.Notities.Select(p => p.Categorie)).Where(x => x.NotitieBoekId == id).FirstOrDefault();
+
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+       
         }
 
         public FullObservableCollection<NotitieBoek> Notitieboeklijst()
             {
-                using (NotitieDBContext context = new NotitieDBContext())
-                {
-                MyLogger.GetInstance().Info("I came from DB");
-                return new FullObservableCollection<NotitieBoek>(context.NotitieBoeken
-                .Include(x => x.Notities)
-                .Include(x => x.Eigenaar)
-                .ToList());
-                }
-            }
-
-            public Notitie NotitieById(int id)
+            try
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                MyLogger.GetInstance().Info("I came from DB2");
-                return context.Notities.Include(x => x.Categorie)
-                               .Where(x => x.Id == id)
-                               .FirstOrDefault();
-                }
-            }
-
-            public ObservableCollection<Notitie> Notitielijst()
-            {
-                using (NotitieDBContext context = new NotitieDBContext())
-                {
-                MyLogger.GetInstance().Info("I came from DB1");
-                return new ObservableCollection<Notitie>( context.Notities
-                    .Include(x => x.NotitieBoek)
-                    .Include(x => x.Categorie)
+                    MyLogger.GetInstance().Info("I came from DB");
+                    return new FullObservableCollection<NotitieBoek>(context.NotitieBoeken
+                    .Include(x => x.Notities)
                     .Include(x => x.Eigenaar)
                     .ToList());
                 }
             }
-            public FullObservableCollection<Categorie> Categorieenlijst()
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
+            }
+
+        public Notitie NotitieById(int id)
+            {
+            try
+            {
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+
+                    return context.Notities.Include(x => x.Categorie)
+                                   .Where(x => x.Id == id)
+                                   .FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+               
+            }
+
+        public ObservableCollection<Notitie> Notitielijst()
+            {
+            try
+            {
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+
+                    return new ObservableCollection<Notitie>(context.Notities
+                        .Include(x => x.NotitieBoek)
+                        .Include(x => x.Categorie)
+                        .Include(x => x.Eigenaar)
+                        .ToList());
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+         
+            }
+
+        public FullObservableCollection<Categorie> Categorieenlijst()
+            {
+            try
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
                     return new FullObservableCollection<Categorie>(context.Categorieen.ToList());
                 }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+            }
 
         public FullObservableCollection<Eigenaar> Eigenaarslijst()
         {
-            using (NotitieDBContext context = new NotitieDBContext())
+            try
             {
-                return new FullObservableCollection<Eigenaar>(context.Eigenaars.ToList());
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+                    return new FullObservableCollection<Eigenaar>(context.Eigenaars.ToList());
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+         
         }
 
             #endregion
@@ -127,89 +216,188 @@ namespace NotitieApplicatie.BusinessAccessLayer
 
             public Notitie UpdateNotitie(Notitie notitie)
             {
+            try
+            {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
                     context.SaveChanges();
                     return notitie;
                 }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+              
+            }
 
             public NotitieBoek UpdateNotitieBoek(NotitieBoek notitieBoek)
+            {
+            try
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
 
-                if (!context.NotitieBoeken.Local.Contains(notitieBoek))
-                {
-                  
+                    if (!context.NotitieBoeken.Local.Contains(notitieBoek))
+                    {
 
+                        if (notitieBoek.EigenaarId != notitieBoek.Eigenaar.EigenaarId)
+                        {
+                            notitieBoek.EigenaarId = notitieBoek.Eigenaar.EigenaarId;
 
-                    //context.NotitieBoeken.Include(x => x.Eigenaar);
-                  
-                    //context.NotitieBoeken.Attach(notitieBoek);
-                    context.Entry(notitieBoek.Eigenaar).State = EntityState.Modified;
-                    context.Entry(notitieBoek).State = EntityState.Modified;
-                    context.SaveChanges();
+                            if (notitieBoek.Notities != null)
+                            {
+
+                                foreach (var child in notitieBoek.Notities.ToList())
+                                {
+                                    context.Notities.Attach(child);
+                                    child.EigenaarId = notitieBoek.EigenaarId;
+                                    context.SaveChanges();
+                                }
+                            }
+                            context.Entry(notitieBoek).State = EntityState.Modified;
+                        }
+
+                        context.Entry(notitieBoek).State = EntityState.Modified;
+
+                        context.SaveChanges();
+
+                        //notitieBoek.Eigenaar.Id = context.Eigenaars.Where(x=> x.Id == notitieBoek.Eigenaar.Id).FirstOrDefault().Id;
+                        //context.Configuration.AutoDetectChangesEnabled = true;
+                        //context.SaveChanges();
+                    }
+
+                    return notitieBoek;
+
                 }
-                
-                return notitieBoek;
-
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+               
         }
 
             public Categorie UpdateCategorie(Categorie categorie)
             {
+            try
+            {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+                    context.Entry(categorie).State = EntityState.Modified;
                     context.SaveChanges();
                     return categorie;
                 }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
             }
 
             #endregion
 
         #region Delete operations
 
-            public void RemoveNotitie(Notitie notitie)
+            public Boolean RemoveNotitie(Notitie notitie)
+            {
+            try
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-               
+                    Notitie VerwijderdeNotitie = context.Notities.Where(x => x.Id == notitie.Id).FirstOrDefault();
+                    if (VerwijderdeNotitie != null)
+                    {
+                        context.Notities.Remove(VerwijderdeNotitie);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
 
-                    context.Notities.Remove(notitie);
-                    context.SaveChanges();
+
                 }
             }
-
-            public void RemoveNotitieBoek(NotitieBoek notitieBoek)
+            catch (Exception)
             {
-                using (NotitieDBContext context = new NotitieDBContext())
-                {
-                   if((notitieBoek = context.NotitieBoeken.Include(x => x.Notities).FirstOrDefault( x => x.Id == notitieBoek.Id)) != null)
-                {
-                    foreach (var child in notitieBoek.Notities.ToList())
-                    context.Notities.Remove(child);
-                    context.SaveChanges();
-                    context.NotitieBoeken.Remove(notitieBoek);
-                    context.SaveChanges();
 
-                }
+                return false;
+
+            }
               
-                }
             }
 
-            public void RemoveCategorie(Categorie categorie)
+            public Boolean RemoveNotitieBoek(NotitieBoek notitieBoek)
+            {
+
+            try
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                if ((categorie = context.Categorieen.FirstOrDefault(x => x.Id == categorie.Id)) != null)
+                    if ((notitieBoek = context.NotitieBoeken.Include(x => x.Notities).FirstOrDefault(x => x.NotitieBoekId == notitieBoek.NotitieBoekId)) != null)
+                    {
+                        foreach (var child in notitieBoek.Notities.ToList())
+                            context.Notities.Remove(child);
+                        context.SaveChanges();
+                        context.NotitieBoeken.Remove(notitieBoek);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
 
-                    context.Categorieen.Remove(categorie);
-                    context.SaveChanges();
                 }
-
             }
-            #endregion
+            catch (Exception)
+            {
+                return false;
+            }
+             
+            }
+
+            public Boolean RemoveCategorie(Categorie categorie)
+            {
+            try
+            {
+                using (NotitieDBContext context = new NotitieDBContext())
+                {
+                    if ((categorie = context.Categorieen.FirstOrDefault(x => x.CategorieId == categorie.CategorieId)) != null)
+
+                        context.Categorieen.Remove(categorie);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException is SqlException)
+                {
+                    MyLogger.GetInstance().Error("SqlException from AddNotitie: " + ex.Message + ex.InnerException);
+                }
+                else
+                {
+                    MyLogger.GetInstance().Error("Exception from AddNotitie: " + ex.Message + ex.InnerException);
+     
+                }
+            }
+
+            catch(Exception ex)
+            {
+                MyLogger.GetInstance().Error(" Unspecified Exception from AddNotitie: " + ex.Message + ex.InnerException);
+             
+            }
+            return false;
+
+        }
+        #endregion
 
     }
 }

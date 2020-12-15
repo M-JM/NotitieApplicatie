@@ -120,8 +120,7 @@ namespace NotitieApplicatie.Viewmodels
 
         private void Notitieboek_Propertychanged(object sender, PropertyChangedEventArgs e)
         {
-            // Maakt een check of er geen errormessages meer zijn en indien ok, mag bewaren.
-            
+                       
             if (NotitieBoekA.HasErrors)
             {
                 MagBewaren = true;
@@ -134,21 +133,14 @@ namespace NotitieApplicatie.Viewmodels
         private void BewaarNotitieBoek(Object parameter = null)
         {
          
-            //new NotitieBoek(Naam, Beschrijving, Eigenaar);
-        
+                
             DbRepository.AddNotitieBoek(NotitieBoekA);
-          
-            // Command button naar false zodat hij weer disabled is.
+                    
             MagBewaren = false;
 
-            // zorgt ervoor dat na update de velden weer leeg zijn.
             NotitieBoekA = new NotitieBoek("", "", null);
                     
 
-            // Idien ik niet de class gebruik -> properties van viewmodel naar eigen method bv. Clear() beter ? 
-            //Naam = string.Empty;
-            //Beschrijving = string.Empty;
-            //Eigenaar = null;
                
         }
         private Boolean MagNotitieBewaren(object parameter = null)
