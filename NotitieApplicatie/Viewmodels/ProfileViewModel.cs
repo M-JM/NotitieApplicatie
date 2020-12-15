@@ -11,6 +11,7 @@ namespace NotitieApplicatie.Viewmodels
 {
     public class ProfileViewModel : BaseViewModel
     {
+
         /// <summary>
         /// 
         /// Bedoeling :
@@ -31,7 +32,9 @@ namespace NotitieApplicatie.Viewmodels
         /// -> probleem is door het niet gebruiken van DTO en meteen de models te gebruiken uit datalaag is dat validatie regels daar worden geschreven.
         /// Bij IdataErrorInfo moet men een een sting prop hebben ( gebruik maken van NotMapped dataAnnotation ?)
         /// </summary>
-        /// 
+       
+
+
         private NotitieBoek _notitieBoek;
         private string _naam;
         private string _beschrijving;

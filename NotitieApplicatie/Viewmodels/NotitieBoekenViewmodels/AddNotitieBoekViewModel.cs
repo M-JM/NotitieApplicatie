@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using static NotitieApplicatie.Exceptions.NotitieBoekExpections;
 
 namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 {
@@ -19,6 +21,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         private RelayCommand _maakCommand;
         private RelayCommand _cancelCommand;
         private FullObservableCollection<Eigenaar> _eigenaars;
+        private Boolean _magBewaren;
 
         public NotitieBoek NotitieBoek
         {
@@ -32,8 +35,6 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 
             }
         }
-
-        private Boolean _magBewaren;
 
         public Boolean MagBewaren
         {
@@ -77,7 +78,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         public AddNotitieBoekViewModel(NotitieApplicatieMainViewmodel vm)
         {
             _vm = vm;
-            Titel = "Maak een nieuwe Notitieboek";
+            Titel = "Maak een nieuwe NotitieBoek";
             NotitieBoek = new NotitieBoek("", "", null);
             MaakCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBewaren);
             CancelCommand = new RelayCommand(CancelAddBoek);
@@ -101,25 +102,31 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             }
         }
 
-
-
-
         private void BewaarNotitieBoek(Object parameter = null)
         {
             try
             {
                 
-                DbRepository.AddNotitieBoek(NotitieBoek);
+               NotitieBoek check = DbRepository.AddNotitieBoek(NotitieBoek);
+            
+                if(check != null) { 
                 MagBewaren = false;
                 _vm.SelectedView = new HomeViewModel(_vm);
-
+                }
+                else
+                {
+                    throw new DbNotitieBoekExceptions();
+                }
             }
-            catch (Exception)
+            catch (DbNotitieBoekExceptions ex)
             {
-
-                throw;
+                MessageBox.Show($"{ex.Message}", "Er is een fout opgetreden");
             }
-           
+           catch(Exception ex)
+            {
+                MyLogger.GetInstance().Error("General Exception uit BewaarNotitieBoek : " + ex.Message);
+                MessageBox.Show("Er is een onbekende fout opgetreden, gelieve contact op te nemen met de Administrator","Er is een fout opgetreden");
+            }
 
          
 

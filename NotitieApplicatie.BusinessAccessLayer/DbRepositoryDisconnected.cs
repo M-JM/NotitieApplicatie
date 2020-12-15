@@ -13,7 +13,7 @@ namespace NotitieApplicatie.BusinessAccessLayer
     public class DbRepositoryDisconnected : IDbRepository
     {
 
-         #region Create operations
+        #region Create operations
 
         public Notitie AddNotitie(Notitie notitie)
         {
@@ -21,12 +21,15 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-
                     context.Notities.Add(notitie);
                     context.SaveChanges();
                     return notitie;
-
                 }
+            }
+            catch (DbUpdateException ex)
+            {
+                MyLogger.GetInstance().Error("DB insert error from AddNotitie: " + ex.Message);
+
             }
             catch (Exception ex)
             {
@@ -36,12 +39,11 @@ namespace NotitieApplicatie.BusinessAccessLayer
                 }
                 else
                 {
-                    MyLogger.GetInstance().Error("Exception from AddNotitie: " + ex.Message);
-                }
-                notitie = null;
-                return notitie;
+                    MyLogger.GetInstance().Error("Uncaught Exception from AddNotitie: " + ex.Message);
+                }   
             }
-          
+            notitie = null;
+            return notitie;
         }
 
         public NotitieBoek AddNotitieBoek(NotitieBoek notitieBoek)
@@ -64,12 +66,25 @@ namespace NotitieApplicatie.BusinessAccessLayer
                     return notitieBoek;
                 }
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
+                MyLogger.GetInstance().Error("DB insert error from AddNotitieBoek: " + ex.Message);
 
-                throw;
             }
-           
+
+            catch (Exception ex)
+            {
+                if (ex.InnerException is SqlException)
+                {
+                    MyLogger.GetInstance().Error("SqlException from AddNotitieBoek: " + ex.Message);
+                }
+                else
+                {
+                    MyLogger.GetInstance().Error("Uncaught Exception from AddNotitieBoek: " + ex.Message);
+                }
+            }
+            notitieBoek = null;
+            return notitieBoek;
         }
 
         public Categorie AddCategorie(Categorie categorie)
@@ -83,12 +98,25 @@ namespace NotitieApplicatie.BusinessAccessLayer
                     return categorie;
                 }
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
-
-                throw;
+                MyLogger.GetInstance().Error("DB insert error from AddCategorie: " + ex.Message);
             }
-       
+
+            catch (Exception ex)
+            {
+                if (ex.InnerException is SqlException)
+                {
+                    MyLogger.GetInstance().Error("SqlException from AddCategorie: " + ex.Message);
+                }
+                else
+                {
+                    MyLogger.GetInstance().Error("Uncaught Exception from AddCategorie: " + ex.Message);
+                }
+            }
+            categorie = null;
+            return categorie;
+
         }
         #endregion
 
@@ -119,7 +147,7 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
-                    MyLogger.GetInstance().Info("I came from DB");
+                    
                     return new FullObservableCollection<NotitieBoek>(context.NotitieBoeken
                     .Include(x => x.Notities)
                     .Include(x => x.Eigenaar)
@@ -257,27 +285,41 @@ namespace NotitieApplicatie.BusinessAccessLayer
                                 }
                             }
                             context.Entry(notitieBoek).State = EntityState.Modified;
+                            context.SaveChanges();
                         }
+                        else
+                        {
+                            var test = context.NotitieBoeken.FirstOrDefault(x=> x.NotitieBoekId == notitieBoek.NotitieBoekId);
+                            context.Entry(test).CurrentValues.SetValues(notitieBoek);
+                            context.Entry(test).State = EntityState.Modified;
+                            context.SaveChanges();
+                        }  
 
-                        context.Entry(notitieBoek).State = EntityState.Modified;
-
-                        context.SaveChanges();
-
-                        //notitieBoek.Eigenaar.Id = context.Eigenaars.Where(x=> x.Id == notitieBoek.Eigenaar.Id).FirstOrDefault().Id;
-                        //context.Configuration.AutoDetectChangesEnabled = true;
-                        //context.SaveChanges();
                     }
 
                     return notitieBoek;
 
                 }
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
+                MyLogger.GetInstance().Error("DB insert error from UpdateNotitieBoek: " + ex.Message);
 
-                throw;
             }
-               
+            catch (Exception ex)
+            {
+                if (ex.InnerException is SqlException)
+                {
+                    MyLogger.GetInstance().Error("SqlException from UpdateNotitieBoek: " + ex.Message);
+                }
+                else
+                {
+                    MyLogger.GetInstance().Error("Uncaught Exception from UpdateNotitieBoek: " + ex.Message);
+                }
+            }
+            notitieBoek = null;
+            return notitieBoek;
+
         }
 
             public Categorie UpdateCategorie(Categorie categorie)

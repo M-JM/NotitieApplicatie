@@ -20,9 +20,14 @@ namespace NotitieApplicatie.Exceptions
             }
         }
 
-     
+        public class CategorieException : Exception
+        {
+            public CategorieException(): base($"Er is iets verkeerd gelopen met de gelieve de Administrator hiervoor te contacteren")
+            {
+            }
+        }
 
-       
+
 
 
     }

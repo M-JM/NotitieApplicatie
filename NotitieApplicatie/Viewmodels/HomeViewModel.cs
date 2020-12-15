@@ -51,8 +51,7 @@ namespace NotitieApplicatie.Viewmodels
         #region Constructor
         public HomeViewModel(NotitieApplicatieMainViewmodel vm)
         {
-            MyLogger.GetInstance().Info("I came from HomeViewModel");
-
+         
             _vm = vm;
             NotitieBoekLijst = new NotitieBoekLijstViewModel(_vm);
             NotitieBoek = new NotitieBoekViewModel(_vm);
@@ -71,7 +70,7 @@ namespace NotitieApplicatie.Viewmodels
             {
                 case "VerwijderdeNotitieboek":
                     (NotitieBoekLijst as NotitieBoekLijstViewModel).VerwijderdeNotitieboek = (NotitieBoek as NotitieBoekViewModel).VerwijderdeNotitieboek;
-
+                    (NotitieLijst as NotitieLijstViewModel).VerwijderdeNotitieboek = (NotitieBoek as NotitieBoekViewModel).VerwijderdeNotitieboek;
                     break;
                 default:
                     break;

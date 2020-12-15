@@ -15,11 +15,10 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 		private Notitie _geselecteerdeNotitie;
 		private FullObservableCollection<Eigenaar> _eigenaars;
 		private FullObservableCollection<Categorie> _categorieen;
-		private FullObservableCollection<NotitieBoek> _notitieBoek;
 		private RelayCommand _cancelCommand;
 		private RelayCommand _bewaarCommand;
 		private Boolean _notitieGewijzigd;
-		private FullObservableCollection<NotitieBoek> _notitieBoeken;
+	
 
 		public Notitie GeselecteerdeNotitie
 		{
@@ -40,15 +39,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 			}
 		}
 
-		public FullObservableCollection<NotitieBoek> NotitieBoeken
-		{
-			get { return _notitieBoeken; }
-			set
-			{
-				SetProperty(ref _notitieBoeken, value);
-			}
-		}
-
+	
 		public FullObservableCollection<Categorie> CategorieLijst
 		{
 			get { return _categorieen; }

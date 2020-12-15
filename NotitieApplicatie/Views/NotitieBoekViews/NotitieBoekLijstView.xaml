@@ -7,9 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        
-
-        
+  
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -26,12 +24,6 @@
 
             </ListBox>
         </Grid>
-        
-       
-        
-        <!--<TextBlock Text="{Binding Titel}" FontSize="40" FontWeight="Bold" Grid.Row="0" Margin="186,10,124,0"></TextBlock>
-        <ListBox ItemsSource="{Binding Notitieboeken}" SelectedItem="{Binding GeselecteerdeNotitieBoek}" Grid.Row="2"></ListBox>
-        <Button Content="Nieuwe NotitieBoek" Command="{Binding AddNotitieBoekCommand}" Grid.Row="1" Margin="256,96,279,257"></Button>-->
-
+ 
     </Grid>
 </UserControl>

@@ -16,7 +16,7 @@ namespace NotitieApplicatie.Exceptions
 
         public class DbNotitieBoekExceptions : Exception
         {
-            public DbNotitieBoekExceptions()
+            public DbNotitieBoekExceptions():base($"Er is iets verkeerd gelopen met de Databank gelieve de Administrator hiervoor te contacteren")
             {
 
             }
@@ -25,7 +25,7 @@ namespace NotitieApplicatie.Exceptions
 
         public class GeneralExpection: Exception
         {
-            public GeneralExpection()
+            public GeneralExpection():base($"Er is iets verkeerd gelopen tijdens het aanmaken gelieve de Administrator hiervoor te contacteren")
             {
 
             }

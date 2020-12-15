@@ -106,7 +106,8 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex + "You cannot delete nothing");
+                MyLogger.GetInstance().Warning($"Er is iets verkeerd gegaan by het verwijderen van Observable NotitieboekCollection + {ex}");
+                MessageBox.Show("You cannot delete nothing","Something went wrong in my spaghetti code") ;
             }
            
         }

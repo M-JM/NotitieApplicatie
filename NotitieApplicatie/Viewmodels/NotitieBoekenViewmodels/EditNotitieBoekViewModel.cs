@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using static NotitieApplicatie.Exceptions.NotitieBoekExpections;
 
 namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 {
@@ -16,7 +18,8 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         private NotitieBoek _geselecteerdeNotitieBoek;
         private Boolean _notitieboekGewijzigd;
         private RelayCommand _bewaarCommand;
-    
+      
+
         private FullObservableCollection<Eigenaar> _eigenaars;
 
         public NotitieBoek GeselecteerdeNotitieBoek
@@ -28,7 +31,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
                 GeselecteerdeNotitieBoek.PropertyChanged += GeselecteerdeNotitieBoek_PropertyChanged;
 
                 /// Noodzakelijk om de huidige eigenaar van mijn Gelesecteerde notitieboek weer te geven als de selecteditem van de ComboBox.
-                /// ComboBox sourceItemList is een observable -> de selectedItem moet uit die SourceItemlist komen (Indexvalues)
+                /// ComboBox sourceItemList is een observable -> de selectedItem moet uit die SourceItemlist komen 
                 /// Dus hier moet ik de waarde van eigenaar in mijn notitieboek gaan instellen met dezelfde waarde uit lijst van Eigenaars
                 /// Combobox kent alleen waardes uit de lijst waarmee hij gepopuleerd wordt !!!
                 /// Verder opzoeken of hier geen beter manier voor besta ??)
@@ -98,6 +101,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             Titel = "U Editeert Notitieboek met Id " + $"{GeselecteerdeNotitieBoek.NotitieBoekId}";
             BewaarCommand = new RelayCommand(BewaarNotitieBoek, MagNotitieBoekBewaren);
             CancelCommand = new RelayCommand(CancelNotitieBoek);
+            NotitieBoekGewijzigd = false;
         }
 
         #endregion
@@ -105,9 +109,34 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         #region Methods
         private void BewaarNotitieBoek(Object parameter = null)
         {
-            DbRepository.UpdateNotitieBoek(GeselecteerdeNotitieBoek);
-            NotitieBoekGewijzigd = false;
-            _vm.SelectedView = new HomeViewModel(_vm);
+            try
+            {
+               NotitieBoek check = DbRepository.UpdateNotitieBoek(GeselecteerdeNotitieBoek);
+             if(check != null)
+                {
+                    NotitieBoekGewijzigd = false;
+                    _vm.SelectedView = new HomeViewModel(_vm);
+                   
+                }
+                else
+                {
+                    throw new DbNotitieBoekExceptions();
+                }
+              
+            }
+            catch (DbNotitieBoekExceptions ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Er is een fout opgetreden");
+            }
+            catch (Exception ex)
+            {
+                MyLogger.GetInstance().Error("General Exception uit EditNotitieBoek : " + ex.ToString());
+                // ex.ToString
+                //The default implementation of ToString obtains the name of the class that threw the current exception, the message, the result of calling ToString on the inner exception, and the result of calling Environment.StackTrace.If any of these members is null, its value is not included in the returned string.
+                //If there is no error message or if it is an empty string (""), then no error message is returned.The name of the inner exception and the stack trace are returned only if they are not null.
+                MessageBox.Show("Er is een onbekende fout opgetreden, gelieve contact op te nemen met de Administrator", "Er is een fout opgetreden");
+            }
+
         }
 
         private void CancelNotitieBoek(Object parameter = null)
@@ -122,9 +151,14 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 
         private void GeselecteerdeNotitieBoek_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            NotitieBoekGewijzigd = true;
-            Console.WriteLine("i triggered");
-
+            if (GeselecteerdeNotitieBoek.HasErrors)
+            {
+                NotitieBoekGewijzigd = false;
+            }
+            else
+            {
+                NotitieBoekGewijzigd = true;
+            }         
         }
 
         #endregion

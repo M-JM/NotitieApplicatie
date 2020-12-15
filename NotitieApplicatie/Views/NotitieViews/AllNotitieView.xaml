@@ -60,40 +60,47 @@
 
                 <GridView>
                     <GridViewColumn>
-                        <GridViewColumnHeader Content="Titel" />
+                        <GridViewColumnHeader Content="Titel" HorizontalContentAlignment="Left"  />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 50 0" Text="{Binding Titel}" />
+                                <TextBlock Padding="10 0 0 0" Text="{Binding Titel}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="250">
+                        <GridViewColumnHeader Content="Inhoud" HorizontalContentAlignment="Left"  />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock MaxWidth="250" TextTrimming="CharacterEllipsis" Padding="10 0 0 0" Text="{Binding Inhoud}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn>
-                        <GridViewColumnHeader Content="Inhoud" />
+                        <GridViewColumnHeader Content="Categorie" HorizontalContentAlignment="Center"  />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 50 0" Text="{Binding Inhoud}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn>
-                        <GridViewColumnHeader Content="Categorie" />
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                              
-                                    <TextBlock Padding="0 0 50 0" Text="{Binding Categorie.Naam}" />
+
+                                <TextBlock Padding="20 0 0 0"  Text="{Binding Categorie.Naam}" />
                                 
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn>
-                        <GridViewColumnHeader Content="Eigenaar" />
+                        <GridViewColumnHeader Content="Eigenaar" HorizontalContentAlignment="Center"  />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 50 0" Text="{Binding Eigenaar.Naam}" />
+                                <TextBlock Padding="20 0 0 0"  Text="{Binding Eigenaar.Naam}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-               
+                    <GridViewColumn Width="150">
+                        <GridViewColumnHeader Content="NotitieBoek" HorizontalContentAlignment="Center" />
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate >
+                                <TextBlock HorizontalAlignment="Center" Padding="20 0 0 0" Text="{Binding NotitieBoek.Naam}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
                     
             </ListView.View>
