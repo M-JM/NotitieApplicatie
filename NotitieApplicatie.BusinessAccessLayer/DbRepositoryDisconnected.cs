@@ -21,7 +21,17 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+                    notitie.Eigenaar = notitie.NotitieBoek.Eigenaar;
                     context.Notities.Add(notitie);
+                    context.Eigenaars.Attach(notitie.Eigenaar);
+                    context.Categorieen.Attach(notitie.Categorie);
+                    context.NotitieBoeken.Attach(notitie.NotitieBoek);
+                    foreach (Notitie item in notitie.NotitieBoek.Notities.ToList())
+                    {
+                        if(item != notitie) { 
+                        context.Notities.Attach(item);
+                        }
+                    }
                     context.SaveChanges();
                     return notitie;
                 }
@@ -439,6 +449,7 @@ namespace NotitieApplicatie.BusinessAccessLayer
             return false;
 
         }
+
         #endregion
 
     }

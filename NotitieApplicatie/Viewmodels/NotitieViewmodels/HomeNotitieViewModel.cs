@@ -49,7 +49,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
         {
             _vm = vm;
             NotitieBoekLijst = new NotitieBoekLijstViewModel(_vm);
-            AlleNotitieLijst = new AlleNotitiesViewModel();
+            AlleNotitieLijst = new AlleNotitiesViewModel(_vm);
             Notitie = new NotitieViewModel(_vm);
             AlleNotitieLijst.PropertyChanged += AlleNotitieLijst_PropertyChanged;
             Notitie.PropertyChanged += Notitie_PropertyChanged;

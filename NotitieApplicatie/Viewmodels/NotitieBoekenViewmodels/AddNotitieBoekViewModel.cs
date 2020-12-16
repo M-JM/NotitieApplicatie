@@ -31,8 +31,6 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
             {
                 SetProperty(ref _notitieBoek, value);
               NotitieBoek.PropertyChanged += Notitieboek_Propertychanged;
-                Console.WriteLine("I raised prop change");
-
             }
         }
 
@@ -105,8 +103,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         private void BewaarNotitieBoek(Object parameter = null)
         {
             try
-            {
-                
+            {                
                NotitieBoek check = DbRepository.AddNotitieBoek(NotitieBoek);
             
                 if(check != null) { 
@@ -127,17 +124,11 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
                 MyLogger.GetInstance().Error("General Exception uit BewaarNotitieBoek : " + ex.Message);
                 MessageBox.Show("Er is een onbekende fout opgetreden, gelieve contact op te nemen met de Administrator","Er is een fout opgetreden");
             }
-
-         
-
-     
-
         }
 
         private void CancelAddBoek(Object parameter = null)
         {
             _vm.SelectedView = new HomeViewModel(_vm);
-
         }
 
         private Boolean MagNotitieBewaren(object parameter = null)
@@ -146,7 +137,6 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
         }
 
         #endregion
-
 
     }
 }

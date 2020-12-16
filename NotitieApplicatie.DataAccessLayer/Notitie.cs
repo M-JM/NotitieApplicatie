@@ -19,7 +19,9 @@ namespace NotitieApplicatie.DataAccessLayer
         private string _inhoud;
         private DateTime _aangemaaktOp;
         private DateTime _gewijzigdOp;
-        
+        private NotitieBoek _notitieBoek;
+        private Categorie _categorie;
+        private double _rating;
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
@@ -40,10 +42,12 @@ namespace NotitieApplicatie.DataAccessLayer
                 {
                     AddError(nameof(Titel), "Je moet een Titel opgeven");
                 }
-                if(Titel.Length < 5)
+               
+                if(Titel.Trim().Length < 5)
                 {
-                    AddError(nameof(Titel), "Mag niet minder dan 2 karakters zijn");
+                    AddError(nameof(Titel), "Mag niet minder dan 5 karakters zijn");
                 }
+                OnPropertyChanged(nameof(Titel));
             }
         }
 
@@ -55,14 +59,15 @@ namespace NotitieApplicatie.DataAccessLayer
             {
                 ClearErrors(nameof(Inhoud));
                 SetProperty(ref _inhoud, value);
-                if (String.IsNullOrEmpty(value))
+                if (String.IsNullOrEmpty(value) || value.Trim().Length == 0)
                 {
                     AddError(nameof(Inhoud), "Inhoud mag niet leeg zijn");
                 }
                 if (Inhoud.Length > 100)
                 {
-                    AddError(nameof(Titel), "Inhoud mag niet groter zijn als 100 karakters");
+                    AddError(nameof(Inhoud), "Inhoud mag niet groter zijn als 100 karakters");
                 }
+                OnPropertyChanged(nameof(Inhoud));
             }
         }
 
@@ -76,7 +81,6 @@ namespace NotitieApplicatie.DataAccessLayer
             }
         }
 
-      
         [Column(TypeName = "datetime2")]
         public DateTime GewijzigdOp
         {
@@ -87,8 +91,6 @@ namespace NotitieApplicatie.DataAccessLayer
             }
         }
 
-        private double _rating;
-
         public double Rating
         {
             get { return _rating; }
@@ -98,25 +100,46 @@ namespace NotitieApplicatie.DataAccessLayer
             }
         }
 
-
-
-        public Categorie Categorie { get; set; }
+        public Categorie Categorie
+        {
+            get { return _categorie; }
+            set
+            {
+                ClearErrors(nameof(Categorie));
+                SetProperty(ref _categorie, value);
+                if (Categorie == null)
+                {
+                    AddError(nameof(Categorie), "U moet een Categorie selecteren!");
+                }
+            }
+        }
 
         [ForeignKey("Categorie")]
         public int? CategorieId { get; set; }
 
         [ForeignKey("Eigenaar")]
         public int? EigenaarId { get; set; }
+
         public Eigenaar Eigenaar { get; set; }
 
         [ForeignKey("NotitieBoek")]
         public int? NotitieBoekId { get; set; }
-        public NotitieBoek NotitieBoek { get; set; }
 
+        public NotitieBoek NotitieBoek
+        {
+            get { return _notitieBoek; }
+            set
+            {
+                ClearErrors(nameof(NotitieBoek));
+                SetProperty(ref _notitieBoek, value);
+                if (NotitieBoek == null)
+                {
+                    AddError(nameof(NotitieBoek), "U moet een NotitieBoek selecteren!");
+                }
+            }
+        }
 
         public bool HasErrors{ get { return _propertyErrors.Any(propErrors => propErrors.Value != null && propErrors.Value.Count > 0); } }
-
-
 
         #endregion
 

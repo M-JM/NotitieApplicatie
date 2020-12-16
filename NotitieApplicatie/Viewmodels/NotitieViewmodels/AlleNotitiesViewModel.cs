@@ -14,6 +14,18 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 {
    public class AlleNotitiesViewModel : BaseViewModel
     {
+		private readonly NotitieApplicatieMainViewmodel _vm;
+		private RelayCommand _addNewNotitie;
+
+		public RelayCommand AddNewNotitie
+		{
+			get { return _addNewNotitie; }
+			set
+			{
+				SetProperty(ref _addNewNotitie, value);
+			}
+		}
+
 
 		private ICollectionView _collectionView;
 
@@ -51,7 +63,9 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 
 			}
 		}
+
 		private Notitie _verwijderdeNotitie;
+
 		public Notitie VerwijderdeNotitie
 		{
 			get { return _verwijderdeNotitie; }
@@ -86,6 +100,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 		}
 
 		private string _search;
+	
 
 		public string  Search
 		{
@@ -100,11 +115,13 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 
 		
 
-		public AlleNotitiesViewModel()
+		public AlleNotitiesViewModel(NotitieApplicatieMainViewmodel vm)
 		{
+			_vm = vm;
 			Titel = "Al mijn notities";
 			Notities = new FullObservableCollection<Notitie>(DbRepository.Notitielijst().ToList());
 			CollectionView = CollectionViewSource.GetDefaultView(Notities);
+			AddNewNotitie = new RelayCommand(ShowInfoView);
 			Search = "";
 			CollectionView.Filter = new Predicate<object>(o => Filter(o as Notitie)); ;
 
@@ -116,15 +133,13 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 		   || notitie.Titel.IndexOf(Search, StringComparison.OrdinalIgnoreCase) != -1
 		   || notitie.Inhoud.IndexOf(Search, StringComparison.OrdinalIgnoreCase) != -1
 		   || notitie.Eigenaar.Naam.IndexOf(Search, StringComparison.OrdinalIgnoreCase) != -1
-		   || notitie.Categorie.Naam.IndexOf(Search, StringComparison.OrdinalIgnoreCase) != -1;
-
+		   || notitie.Categorie.Naam.IndexOf(Search, StringComparison.OrdinalIgnoreCase) != -1
+		   || notitie.NotitieBoek.Naam.IndexOf(Search, StringComparison.OrdinalIgnoreCase) != -1;
 		}
-
 
 		private void VerwijderdeNotitie_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			Notities.Remove(VerwijderdeNotitie);
-		
+			Notities.Remove(VerwijderdeNotitie);		
 		}
 
 		private void RemoveNotitie(Notitie notitie)
@@ -139,6 +154,12 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 			}
 
 		}
+
+		private void ShowInfoView(Object parameter = null)
+		{
+			_vm.SelectedView = new AddNotitieViewModel(_vm);
+		}
+
 
 	}
 }

@@ -120,8 +120,5 @@ namespace NotitieApplicatie.Viewmodels.NotitieBoekenViewmodels
 
         #endregion
 
-
-
-
     }
 }
