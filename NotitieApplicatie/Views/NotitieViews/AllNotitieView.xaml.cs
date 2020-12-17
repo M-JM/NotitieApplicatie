@@ -24,5 +24,10 @@ namespace NotitieApplicatie.Views.NotitieViews
         {
             InitializeComponent();
         }
+
+        private void GridView_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

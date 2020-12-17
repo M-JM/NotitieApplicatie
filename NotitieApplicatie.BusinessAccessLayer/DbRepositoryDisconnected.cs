@@ -258,6 +258,16 @@ namespace NotitieApplicatie.BusinessAccessLayer
             {
                 using (NotitieDBContext context = new NotitieDBContext())
                 {
+                    if (!context.Notities.Local.Contains(notitie))
+                    {
+                        var test = context.Notities.FirstOrDefault(x => x.Id == notitie.Id);
+                        context.Entry(test).CurrentValues.SetValues(notitie);
+                        context.Entry(test).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return notitie;
+                    }
+
+
                     context.SaveChanges();
                     return notitie;
                 }

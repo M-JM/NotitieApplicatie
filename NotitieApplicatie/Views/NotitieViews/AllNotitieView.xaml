@@ -47,7 +47,7 @@
 
         <ListView Grid.Row="2" 
             
-            ItemsSource="{Binding CollectionView}" SelectedItem="{Binding GeselecteerdeNotitie}">
+            ItemsSource="{Binding CollectionView}" SelectedItem="{Binding GeselecteerdeNotitie}" MaxHeight="800" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="BorderBrush" Value="{Binding Categorie.Kleur, Converter={StaticResource HexToColor} }" />

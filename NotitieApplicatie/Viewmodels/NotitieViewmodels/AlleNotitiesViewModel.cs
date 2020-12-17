@@ -16,6 +16,10 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
     {
 		private readonly NotitieApplicatieMainViewmodel _vm;
 		private RelayCommand _addNewNotitie;
+		private ICollectionView _collectionView;
+		private FullObservableCollection<Notitie> _notities;
+
+
 
 		public RelayCommand AddNewNotitie
 		{
@@ -24,10 +28,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 			{
 				SetProperty(ref _addNewNotitie, value);
 			}
-		}
-
-
-		private ICollectionView _collectionView;
+		}		
 
 		public ICollectionView CollectionView
 		{
@@ -38,7 +39,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 			}
 		}
 
-		private FullObservableCollection<Notitie> _notities;
+		
 
 		public FullObservableCollection<Notitie> Notities
 		{
@@ -118,6 +119,8 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 		public AlleNotitiesViewModel(NotitieApplicatieMainViewmodel vm)
 		{
 			_vm = vm;
+			
+
 			Titel = "Al mijn notities";
 			Notities = new FullObservableCollection<Notitie>(DbRepository.Notitielijst().ToList());
 			CollectionView = CollectionViewSource.GetDefaultView(Notities);

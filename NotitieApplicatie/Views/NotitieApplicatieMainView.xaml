@@ -16,16 +16,10 @@
     <DockPanel>
         <Menu IsMainMenu="true" DockPanel.Dock="top">
             <MenuItem Header="File">
-                <MenuItem Header="Restart Database" Command="{Binding SwitchCommand}"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="New Categorie"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem Header="Exit" Command="{Binding SwitchCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Header="About">
                 <MenuItem Header="Info Application" Command="{Binding InfoCommand}"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Restart Database"></MenuItem>
             </MenuItem>
         </Menu>
         <controls:NavigationBar DockPanel.Dock="Top"></controls:NavigationBar>

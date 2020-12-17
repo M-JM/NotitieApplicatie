@@ -367,7 +367,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\pause-play-button.png" />
+    <Resource Include="Ressources\play-button.png" />
+    <Resource Include="Ressources\stop-button.png" />
+    <Resource Include="Ressources\video-pause-button.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\note.png" />
     <Resource Include="Ressources\notebook.png" />

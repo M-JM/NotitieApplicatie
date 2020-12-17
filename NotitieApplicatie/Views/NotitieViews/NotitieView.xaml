@@ -19,6 +19,9 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -37,14 +40,17 @@
         <TextBlock Style="{StaticResource TextBlocks}" Text="Eigenaar: " Grid.Row="6" Grid.Column="0"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="Categorie: " Grid.Row="7" Grid.Column="0"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="Rating: " Grid.Row="8" Grid.Column="0"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="Email Address: " Grid.Row="13" Grid.Column="0" Margin="80,15,83,-9"></TextBlock>
+
 
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Id}" Grid.Row="1" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Titel, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"></TextBlock>
-        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Inhoud, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1"></TextBlock>
-        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.AangemaaktOp, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1"></TextBlock>
-        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GewijzigdDatum, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Margin="0,20,0,20" TextWrapping="Wrap"  Text="{Binding GeselecteerdeNotitie.Inhoud, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.AangemaaktOp,StringFormat=d, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1"></TextBlock>
+        <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GewijzigdDatum,StringFormat=d, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Eigenaar.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Categorie.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" Grid.Column="1"></TextBlock>
+        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" VerticalContentAlignment="Bottom" Grid.Row="13" Grid.Column="1"></TextBox>
 
         <syncfusion:SfRating ItemsCount="5" Precision="Half" IsReadOnly="True" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" Value="{Binding GeselecteerdeNotitie.Rating}">
             <syncfusion:SfRating.ItemContainerStyle>
@@ -53,28 +59,52 @@
                     </Setter>
                     <Setter Property="Height" Value="16"></Setter>
                 </Style>
-                </syncfusion:SfRating.ItemContainerStyle>
+            </syncfusion:SfRating.ItemContainerStyle>
 
         </syncfusion:SfRating>
 
 
 
-        <Button Content="Delete" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding DeleteCommand}" Grid.Row="9" Grid.Column="1"></Button>
-        <Button Content="Edit" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding EditCommand}" Grid.Row="9" Grid.Column="2"></Button>
+        <Button Content="Delete" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding DeleteCommand}" Grid.Row="9" Margin="10,20,10,20" Grid.Column="1"></Button>
+        <Button Content="Edit" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding EditCommand}" Grid.Row="9" Margin="10,20,10,20" Grid.Column="2"></Button>
 
-        <Grid Margin="20,20,20,20" Grid.Row="10" Grid.ColumnSpan="3">
+
+        <TextBlock Background="{StaticResource BrushTitel}" Margin="0,0,0,10" Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="10" Grid.ColumnSpan="3" Text="Speel de inhoud af van de notitie" ></TextBlock>
+
+
+        <Grid Margin="20,20,20,20" Grid.Row="11" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Content="Speel af" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding SpeelAf}" Grid.Row="0" Grid.Column="0"></Button>
-            <Button Content="Hervat" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding Hervat}" Grid.Row="0" Grid.Column="1"></Button>
-            <Button Content="Pauze" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding Pauze}" Grid.Row="0" Grid.Column="2"></Button>
-            <Button Content="Stop" Width="150" Height="30" HorizontalAlignment="Center" Command="{Binding Stop}" Grid.Row="0" Grid.Column="3"></Button>
+            <Button Background="Orchid" Width="75" Height="30" HorizontalAlignment="Center" Command="{Binding SpeelAf}" Grid.Row="0" Grid.Column="0">
+                <StackPanel>
+                    <Image Source="/Ressources/play-button.png" Height="22" Width="73" RenderTransformOrigin="0.678,0.545"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Orchid" Width="75" Height="30" HorizontalAlignment="Center" Command="{Binding Hervat}" Grid.Row="0" Grid.Column="1">
+                <StackPanel>
+                    <Image Source="/Ressources/pause-play-button.png" Height="22" Width="73" RenderTransformOrigin="0.678,0.545"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Orchid" Width="75" Height="30" HorizontalAlignment="Center" Command="{Binding Pauze}" Grid.Row="0" Grid.Column="2">
+                <StackPanel>
+                    <Image Source="/Ressources/video-pause-button.png" Height="22" Width="73" RenderTransformOrigin="0.678,0.545"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Orchid"  Width="75" Height="30" HorizontalAlignment="Center" Command="{Binding Stop}" Grid.Row="0" Grid.Column="3">
+                <StackPanel>
+                    <Image Source="/Ressources/stop-button.png" Height="22" Width="73" RenderTransformOrigin="0.678,0.545"/>
+                </StackPanel>
+            </Button>
         </Grid>
-       
+
+        <TextBlock Background="{StaticResource BrushTitel}" Margin="0,0,0,30" Padding="10" FontSize="20" Foreground="White" TextAlignment="Center" Grid.Row="12" Grid.ColumnSpan="3" Text="Stuur deze notitie per email" ></TextBlock>
+
+
+        <Button Content="Stuur Notitie per Email" Width="188" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding EmailCommand}" Grid.Row="13" Grid.Column="2" Margin="47,13,31,-9"></Button>
 
     </Grid>
 </UserControl>

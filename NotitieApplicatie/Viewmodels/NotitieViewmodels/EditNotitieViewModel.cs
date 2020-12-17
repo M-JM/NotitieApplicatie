@@ -54,7 +54,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
             set
             {
                 SetProperty(ref _geselecteerdeNotitie, value);
-
+                MagBewaren = true;
                 GeselecteerdeNotitie.PropertyChanged += GeselecteerdeNotitie_Propertychanged;
                 if (value != null)
                 {
@@ -103,6 +103,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
             Titel = "U Editeert Notitie met Id " + $"{GeselecteerdeNotitie.Id}";
             BewaarNotitie = new RelayCommand(BewaarEenNotitie, MagNotitieBewaren);
             Cancel = new RelayCommand(CancelAddNotitie);
+            MagBewaren = false;
         }
 
         private void GeselecteerdeNotitie_Propertychanged(object sender, PropertyChangedEventArgs e)

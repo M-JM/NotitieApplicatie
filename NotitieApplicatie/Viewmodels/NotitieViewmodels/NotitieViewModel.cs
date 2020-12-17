@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,30 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 		private RelayCommand _editCommand;
 		private bool _notitieEditeren;
 		private bool _notitieDeleten;
+
+		private string _email;
+
+		public string Email
+		{
+			get { return _email; }
+			set
+			{
+				SetProperty(ref _email, value);
+			}
+		}
+
+		private RelayCommand _emailCommand;
+
+		public RelayCommand EmailCommand
+		{
+			get { return _emailCommand; }
+			set
+			{
+				SetProperty(ref _emailCommand, value);
+			}
+		}
+
+
 
 		public RelayCommand EditCommand
 		{
@@ -64,6 +90,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 				}
 				} else { 
 				GewijzigdDatum = String.Empty;
+					MagAfspelen = false;
 				}
 			}
 		}
@@ -196,13 +223,14 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
         {
 			_speechSynthesizerObj = new SpeechSynthesizer();
 			_vm = vm;
-			Titel = " Mijn Geselesecteerde Notitie";
+			Titel = " Mijn Geselecteerde Notitie";
 			DeleteCommand = new RelayCommand(DeleteNotitie, MagNotitieDeleten);
 			EditCommand = new RelayCommand(EditNotitie, MagNotitieBewaren);
 			SpeelAf = new RelayCommand(SpeelNotitieAf,Afspelen);
 			Hervat = new RelayCommand(HervatNotitieAf,Hervatten);
 			Pauze = new RelayCommand(PauzeNotitieAf,Pauzeren);
 			Stop = new RelayCommand(StopNotitieAf,Stoppen);
+			EmailCommand = new RelayCommand(SendEmail);
 		}
 
 		private bool Afspelen(object arg)
@@ -317,5 +345,49 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 			Console.WriteLine($"deleted");
 			NotitieEditeren = true;
 		}
+
+		private void SendEmail(Object parameter = null)
+		{
+			try
+			{
+				SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+				{
+					EnableSsl = true,
+					Timeout = 10000,
+					DeliveryMethod = SmtpDeliveryMethod.Network,
+					UseDefaultCredentials = false,
+					Credentials = new NetworkCredential("notitieapplicatietest@gmail.com", "Aqwxsz12..")
+				};
+
+				MailMessage msg = new MailMessage
+				{
+					From = new MailAddress("notitieapplicatietest@gmail.com")
+				};
+				msg.To.Add("gtjimbones@gmail.com");
+				msg.Subject = "Gedeelde Notitie van " + GeselecteerdeNotitie.Eigenaar.Naam;
+				msg.IsBodyHtml = true;
+
+				msg.Body = "<html><body><p>Beste,</p>" +
+				  " Hierbij wenst " + GeselecteerdeNotitie.Eigenaar.Naam + " met jouw zijn notitie te delen."
+					+ "<p>Titel:</p>"
+					+"<p>"+ GeselecteerdeNotitie.Titel +"</p>"
+					+ "<p>Inhoud:</p>"
+					+ "<p>" + GeselecteerdeNotitie.Inhoud + "</p>"
+					+ "<p>Met vriendelijke groeten,<br>Notitie Applicatie </br></p>" +
+					"</br><p>Dit is een automatische email  , Gelieve hier niet op te antwoorden </p>" + " </body> </html>";
+
+				client.Send(msg);
+				MessageBox.Show("Email verstuurd");
+
+			}
+			catch(Exception ex)
+			{
+				MyLogger.GetInstance().Error("Something went wrong with trying to send note by email " + ex.Message);
+				MessageBox.Show("Er is een fout opgetreden bij het versturen van de email","Er is iets verkeerd afgeplopen");
+			}
+		}
+
+
+
 	}
 }
