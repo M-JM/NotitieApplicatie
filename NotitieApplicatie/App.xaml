@@ -28,14 +28,7 @@
             
             
        
-            <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
-                <views:ProfileView></views:ProfileView>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                <views:LoginView></views:LoginView>
-            </DataTemplate>
-
+  
             <DataTemplate DataType="{x:Type viewmodels:InfoViewModel}">
                 <views:InfoView></views:InfoView>
             </DataTemplate>

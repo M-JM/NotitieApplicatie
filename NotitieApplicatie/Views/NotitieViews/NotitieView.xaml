@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NotitieApplicatie.Views.NotitieViews"
+             xmlns:Validation="clr-namespace:NotitieApplicatie.CustomValidation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -50,7 +51,10 @@
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GewijzigdDatum,StringFormat=d, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Eigenaar.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1"></TextBlock>
         <TextBlock Style="{StaticResource TextBlocks}" Text="{Binding GeselecteerdeNotitie.Categorie.Naam, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" Grid.Column="1"></TextBlock>
-        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" VerticalContentAlignment="Bottom" Grid.Row="13" Grid.Column="1"></TextBox>
+
+        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" TextAlignment="Left" VerticalContentAlignment="Bottom" Grid.Row="13" Grid.Column="1">
+            
+        </TextBox>
 
         <syncfusion:SfRating ItemsCount="5" Precision="Half" IsReadOnly="True" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" Value="{Binding GeselecteerdeNotitie.Rating}">
             <syncfusion:SfRating.ItemContainerStyle>

@@ -112,6 +112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomValidation\EmailValidator.cs" />
     <Compile Include="Exceptions\CategorieExpections.cs" />
     <Compile Include="Exceptions\NotitieBoekExpections.cs" />
     <Compile Include="Exceptions\NotitieExceptions.cs" />
@@ -158,9 +159,6 @@
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginView.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\NotitieApplicatieMainView.xaml.cs">
       <DependentUpon>NotitieApplicatieMainView.xaml</DependentUpon>
     </Compile>
@@ -196,15 +194,6 @@
     </Compile>
     <Compile Include="Views\NotitieViews\NotitieView.xaml.cs">
       <DependentUpon>NotitieView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProfileView.xaml.cs">
-      <DependentUpon>ProfileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RegisterView.cs">
-      <DependentUpon>RegisterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\testLayout.xaml.cs">
-      <DependentUpon>testLayout.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -243,10 +232,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NavigationBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,18 +280,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NotitieViews\NotitieView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProfileView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\RegisterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\testLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

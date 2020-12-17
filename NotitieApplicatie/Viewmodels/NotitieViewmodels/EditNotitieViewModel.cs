@@ -123,6 +123,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
         {
             try
             {
+                GeselecteerdeNotitie.GewijzigdOp = DateTime.Now;
                 Notitie check = DbRepository.UpdateNotitie(GeselecteerdeNotitie);
 
                 if (check != null)
