@@ -102,7 +102,6 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 
 		private string _search;
 	
-
 		public string  Search
 		{
 			get { return _search; }
@@ -113,14 +112,11 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
 				CollectionView.Refresh();
 			}
 		}
-
-		
-
+	
 		public AlleNotitiesViewModel(NotitieApplicatieMainViewmodel vm)
 		{
 			_vm = vm;
 			
-
 			Titel = "Al mijn notities";
 			Notities = new FullObservableCollection<Notitie>(DbRepository.Notitielijst().ToList());
 			CollectionView = CollectionViewSource.GetDefaultView(Notities);

@@ -192,8 +192,6 @@ namespace NotitieApplicatie.DataAccessLayer
          return _propertyErrors.SelectMany(err => err.Value.ToList());
         }
 
-
-
         public void AddError(string propertyName, string errorMessage)
         {
             if (!_propertyErrors.ContainsKey(propertyName))
@@ -203,7 +201,6 @@ namespace NotitieApplicatie.DataAccessLayer
             _propertyErrors[propertyName].Add(errorMessage);
             OnErrorschanged(propertyName);
     }
-
 
         private void OnErrorschanged(string propertyName)
         {
@@ -216,9 +213,7 @@ namespace NotitieApplicatie.DataAccessLayer
             {
                 OnErrorschanged(propertyName);
             }
-
         }
-
     }
 
 

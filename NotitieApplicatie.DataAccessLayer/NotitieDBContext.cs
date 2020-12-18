@@ -27,7 +27,6 @@ namespace NotitieApplicatie.DataAccessLayer
         public NotitieDBContext()
             :base("MijnNotitieApplicatie")
         {
-     
 
         }
 

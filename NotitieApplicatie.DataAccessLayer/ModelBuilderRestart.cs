@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NotitieApplicatie.DataAccessLayer
 {
 
-        internal class ModelBuilderRestart : DropCreateDatabaseAlways<NotitieDBContext>
+        public class ModelBuilderRestart : DropCreateDatabaseAlways<NotitieDBContext>
 
         {
             protected override void Seed(NotitieDBContext context)
@@ -50,6 +50,7 @@ namespace NotitieApplicatie.DataAccessLayer
             context.Notities.Add(new Notitie("eerste les DOM", "Dit is een eerste notie van HTML Basics", DateTime.UtcNow, DateTime.UtcNow, 1.5, categorieen[4], eigenaars[1], notitieboeken[0]));
             context.Notities.Add(new Notitie("eerste les Preposition", "Dit is een eerste notie van Frans I ", DateTime.UtcNow, DateTime.UtcNow, 2.5, categorieen[5], eigenaars[1], notitieboeken[0]));
 
+            context.SaveChanges();
         }
         }
     }

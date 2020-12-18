@@ -339,6 +339,7 @@ namespace NotitieApplicatie.Viewmodels.NotitieViewmodels
                 _speechSynthesizerObj.SpeakAsync(GeselecteerdeNotitie.Inhoud);
                 MagPauzeren = true;
                 MagStoppen = true;
+                MagAfspelen = false;
             }
         }
 

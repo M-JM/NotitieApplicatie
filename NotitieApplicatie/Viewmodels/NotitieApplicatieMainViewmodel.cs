@@ -53,7 +53,6 @@ namespace NotitieApplicatie.Viewmodels
         public NotitieApplicatieMainViewmodel()
         {
             ViewCommand = new RelayCommand(Routing);
-            _selectedView = new HomeViewModel(this);
         }
 
         #endregion
